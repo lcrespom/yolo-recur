@@ -1,3 +1,80 @@
 {
-  "payments": []
+  "recurringPayments": [
+    {
+      "id": "1",
+      "name": "Electricity",
+      "location": "Main House",
+      "company": "PowerCo",
+      "website": "https://powerco.example.com",
+      "phone": "555-0100",
+      "periodicity": 1,
+      "paymentMonth": 1,
+      "paymentDay": 15,
+      "cost": 150.00,
+      "bank": "Chase Bank"
+    },
+    {
+      "id": "2",
+      "name": "Internet",
+      "location": "Main House",
+      "company": "FastNet ISP",
+      "website": "https://fastnet.example.com",
+      "phone": "555-0200",
+      "periodicity": 1,
+      "paymentMonth": 1,
+      "paymentDay": 1,
+      "cost": 79.99,
+      "bank": "Chase Bank"
+    },
+    {
+      "id": "3",
+      "name": "Home Insurance",
+      "location": "Main House",
+      "company": "SecureHome Insurance",
+      "website": "https://securehome.example.com",
+      "phone": "555-0300",
+      "periodicity": 12,
+      "paymentMonth": 3,
+      "paymentDay": 1,
+      "cost": 1200.00,
+      "bank": "Wells Fargo"
+    }
+  ],
+  "paymentHistory": [
+    {
+      "id": "1",
+      "recurringPaymentId": "1",
+      "date": "2025-12-15",
+      "amount": 150.00,
+      "isPaid": true
+    },
+    {
+      "id": "2",
+      "recurringPaymentId": "1",
+      "date": "2026-01-15",
+      "amount": 145.50,
+      "isPaid": true
+    },
+    {
+      "id": "3",
+      "recurringPaymentId": "2",
+      "date": "2025-12-01",
+      "amount": 79.99,
+      "isPaid": true
+    },
+    {
+      "id": "4",
+      "recurringPaymentId": "2",
+      "date": "2026-01-01",
+      "amount": 79.99,
+      "isPaid": true
+    },
+    {
+      "id": "5",
+      "recurringPaymentId": "3",
+      "date": "2025-03-01",
+      "amount": 1200.00,
+      "isPaid": true
+    }
+  ]
 }

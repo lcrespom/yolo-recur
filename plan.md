@@ -1,30 +1,30 @@
 # Recurring Payments Tracking App - Implementation Plan
 
-## Phase 1: Foundation & Setup
+## Phase 1: Foundation & Setup ✅
 
 ### Backend Setup
-- [ ] Create `db.json` file for json-server with initial schema (recurring_payments, payment_history)
-- [ ] Create npm script to run json-server concurrently with dev server
-- [ ] Test json-server endpoints
+- [x] Create `db.json` file for json-server with initial schema (recurring_payments, payment_history)
+- [x] Create npm script to run json-server concurrently with dev server
+- [x] Test json-server endpoints
 
 ### Type Definitions
-- [ ] Create `src/types/payment.ts` with TypeScript interfaces for:
+- [x] Create `src/types/payment.ts` with TypeScript interfaces for:
   - RecurringPayment (id, name, location, company, website, phone, periodicity, paymentMonth, paymentDay, cost, bank)
   - PaymentHistoryEntry (id, recurringPaymentId, date, amount, isPaid)
   - API response types
 
 ### Service Layer
-- [ ] Create `src/services/paymentService.ts` with functions:
+- [x] Create `src/services/paymentService.ts` with functions:
   - `getRecurringPayments()` - fetch all recurring payments
   - `getRecurringPayment(id)` - fetch single payment
   - `createRecurringPayment(data)` - create new payment
   - `updateRecurringPayment(id, data)` - update payment
   - `deleteRecurringPayment(id)` - delete payment
-- [ ] Create `src/services/paymentHistoryService.ts` with functions:
+- [x] Create `src/services/paymentHistoryService.ts` with functions:
   - `getPaymentHistory(recurringPaymentId)` - fetch history for a payment
   - `createPaymentHistoryEntry(data)` - add payment history
   - `updatePaymentHistoryEntry(id, data)` - update history entry
-- [ ] Create `src/services/paymentGenerator.ts` with:
+- [x] Create `src/services/paymentGenerator.ts` with:
   - `generateDuePayments()` - auto-generate payment history entries based on due dates
   - Helper functions for date calculations
 
