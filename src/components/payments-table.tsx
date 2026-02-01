@@ -12,6 +12,31 @@ interface PaymentWithNextDue extends RecurringPayment {
   nextDueDate: string
 }
 
+interface SearchInputProps {
+  value: string
+  onChange: (value: string) => void
+  placeholder?: string
+}
+
+function SearchInput({ value, onChange, placeholder }: SearchInputProps) {
+  return (
+    <div className="form-control w-full sm:w-96">
+      <div className="input-group">
+        <span className="bg-base-200">
+          <Search className="h-5 w-5" />
+        </span>
+        <input
+          type="text"
+          placeholder={placeholder}
+          className="input input-bordered w-full"
+          value={value}
+          onChange={e => onChange(e.target.value)}
+        />
+      </div>
+    </div>
+  )
+}
+
 export function PaymentsTable() {
   const navigate = useNavigate()
   const [payments, setPayments] = useState<PaymentWithNextDue[]>([])
@@ -127,6 +152,26 @@ export function PaymentsTable() {
     return `Every ${months} months`
   }
 
+  function SortableHeader({
+    field,
+    label,
+  }: {
+    field: SortField
+    label: string
+  }) {
+    return (
+      <th>
+        <button
+          className="btn btn-ghost btn-sm"
+          onClick={() => handleSort(field)}
+        >
+          {label}
+          <ArrowUpDown className="h-4 w-4" />
+        </button>
+      </th>
+    )
+  }
+
   if (isLoading) {
     return (
       <div className="flex justify-center p-8">
@@ -147,20 +192,11 @@ export function PaymentsTable() {
     <div className="space-y-4">
       {/* Search and New Payment Button */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="form-control w-full sm:w-96">
-          <div className="input-group">
-            <span className="bg-base-200">
-              <Search className="h-5 w-5" />
-            </span>
-            <input
-              type="text"
-              placeholder="Search by name, company, or location..."
-              className="input input-bordered w-full"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-            />
-          </div>
-        </div>
+        <SearchInput
+          value={searchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search by name, company, or location..."
+        />
         <button className="btn btn-primary" onClick={handleNewPayment}>
           <Plus className="h-5 w-5" />
           New Payment
@@ -185,44 +221,12 @@ export function PaymentsTable() {
           <table className="table table-zebra">
             <thead>
               <tr>
-                <th>
-                  <button
-                    className="btn btn-ghost btn-sm"
-                    onClick={() => handleSort('name')}
-                  >
-                    Name
-                    <ArrowUpDown className="h-4 w-4" />
-                  </button>
-                </th>
-                <th>
-                  <button
-                    className="btn btn-ghost btn-sm"
-                    onClick={() => handleSort('location')}
-                  >
-                    Location
-                    <ArrowUpDown className="h-4 w-4" />
-                  </button>
-                </th>
+                <SortableHeader field="name" label="Name" />
+                <SortableHeader field="location" label="Location" />
                 <th>Company</th>
-                <th>
-                  <button
-                    className="btn btn-ghost btn-sm"
-                    onClick={() => handleSort('cost')}
-                  >
-                    Cost
-                    <ArrowUpDown className="h-4 w-4" />
-                  </button>
-                </th>
+                <SortableHeader field="cost" label="Cost" />
                 <th>Frequency</th>
-                <th>
-                  <button
-                    className="btn btn-ghost btn-sm"
-                    onClick={() => handleSort('nextDue')}
-                  >
-                    Next Due
-                    <ArrowUpDown className="h-4 w-4" />
-                  </button>
-                </th>
+                <SortableHeader field="nextDue" label="Next Due" />
               </tr>
             </thead>
             <tbody>
