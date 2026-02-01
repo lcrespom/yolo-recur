@@ -82,9 +82,7 @@ function renderWithRouter() {
 describe('PaymentsTable', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    vi.mocked(paymentService.getRecurringPayments).mockResolvedValue(
-      mockPayments,
-    )
+    vi.mocked(paymentService.getRecurringPayments).mockResolvedValue(mockPayments)
   })
 
   it('renders payments table with data', async () => {
@@ -107,7 +105,7 @@ describe('PaymentsTable', () => {
 
     expect(screen.getByText('PowerCo')).toBeInTheDocument()
     expect(screen.getAllByText('Main House').length).toBeGreaterThan(0)
-    expect(screen.getByText('$150.00')).toBeInTheDocument()
+    expect(screen.getByText('€ 150.00')).toBeInTheDocument()
     expect(screen.getAllByText('Monthly').length).toBeGreaterThan(0)
   })
 
@@ -131,7 +129,7 @@ describe('PaymentsTable', () => {
     })
 
     const searchInput = screen.getByPlaceholderText(
-      /search by name, company, or location/i,
+      /search by name, company, or location/i
     )
     await user.type(searchInput, 'Insurance')
 
@@ -151,7 +149,7 @@ describe('PaymentsTable', () => {
     })
 
     const searchInput = screen.getByPlaceholderText(
-      /search by name, company, or location/i,
+      /search by name, company, or location/i
     )
     await user.type(searchInput, 'Beach House')
 
@@ -170,20 +168,20 @@ describe('PaymentsTable', () => {
     })
 
     const searchInput = screen.getByPlaceholderText(
-      /search by name, company, or location/i,
+      /search by name, company, or location/i
     )
     await user.type(searchInput, 'NonexistentPayment')
 
     await waitFor(() => {
       expect(
-        screen.getByText('No payments found matching your search.'),
+        screen.getByText('No payments found matching your search.')
       ).toBeInTheDocument()
     })
   })
 
   it('displays error message on fetch failure', async () => {
     vi.mocked(paymentService.getRecurringPayments).mockRejectedValue(
-      new Error('Network error'),
+      new Error('Network error')
     )
 
     renderWithRouter()
