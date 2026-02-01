@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { Menu } from 'lucide-react'
-import { ThemeToggle } from './ThemeToggle'
+import { ThemeToggle } from './theme-toggle'
 
 export interface NavLink {
   to: string

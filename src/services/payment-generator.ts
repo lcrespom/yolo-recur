@@ -1,6 +1,6 @@
 import type { RecurringPayment } from '../types/payment'
-import { createPaymentHistoryEntry } from './paymentHistoryService'
-import { getAllPaymentHistory } from './paymentHistoryService'
+import { createPaymentHistoryEntry } from './payment-history-service'
+import { getAllPaymentHistory } from './payment-history-service'
 
 /**
  * Calculate the next payment due date for a recurring payment

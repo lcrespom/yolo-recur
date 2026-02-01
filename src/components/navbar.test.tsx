@@ -7,7 +7,7 @@ import {
   RouterProvider,
   Outlet,
 } from '@tanstack/react-router'
-import { Navbar, type NavLink } from './Navbar'
+import { Navbar, type NavLink } from './navbar'
 
 const navLinks: NavLink[] = [
   { to: '/page1', label: 'Page 1' },
