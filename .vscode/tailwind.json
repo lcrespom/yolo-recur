@@ -1,0 +1,26 @@
+{
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@theme",
+      "description": "Define theme tokens inline in Tailwind CSS v4"
+    },
+    {
+      "name": "@import",
+      "description": "Import other CSS files or Tailwind CSS"
+    },
+    {
+      "name": "@custom-variant",
+      "description": "Define custom variants in Tailwind CSS v4"
+    },
+    {
+      "name": "@layer",
+      "description": "Define a Tailwind layer (base, components, utilities)"
+    },
+    {
+      "name": "@apply",
+      "description": "Apply Tailwind utility classes in CSS"
+    },
+    { "name": "@plugin", "description": "Include Tailwind CSS plugins" }
+  ]
+}
