@@ -2,8 +2,7 @@ import type {
   PaymentHistoryEntry,
   PaymentHistoryEntryInput,
 } from '../types/payment'
-
-const API_BASE_URL = 'http://localhost:3030'
+import { config } from '../config'
 
 /**
  * Fetch payment history for a specific recurring payment
@@ -12,7 +11,7 @@ export async function getPaymentHistory(
   recurringPaymentId: string,
 ): Promise<PaymentHistoryEntry[]> {
   const response = await fetch(
-    `${API_BASE_URL}/paymentHistory?recurringPaymentId=${recurringPaymentId}&_sort=date&_order=desc`,
+    `${config.apiBaseUrl}/paymentHistory?recurringPaymentId=${recurringPaymentId}&_sort=date&_order=desc`,
   )
   if (!response.ok) {
     throw new Error('Failed to fetch payment history')
@@ -24,7 +23,7 @@ export async function getPaymentHistory(
  * Fetch all payment history entries
  */
 export async function getAllPaymentHistory(): Promise<PaymentHistoryEntry[]> {
-  const response = await fetch(`${API_BASE_URL}/paymentHistory?_sort=date&_order=desc`)
+  const response = await fetch(`${config.apiBaseUrl}/paymentHistory?_sort=date&_order=desc`)
   if (!response.ok) {
     throw new Error('Failed to fetch payment history')
   }
@@ -37,7 +36,7 @@ export async function getAllPaymentHistory(): Promise<PaymentHistoryEntry[]> {
 export async function createPaymentHistoryEntry(
   data: PaymentHistoryEntryInput,
 ): Promise<PaymentHistoryEntry> {
-  const response = await fetch(`${API_BASE_URL}/paymentHistory`, {
+  const response = await fetch(`${config.apiBaseUrl}/paymentHistory`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -57,7 +56,7 @@ export async function updatePaymentHistoryEntry(
   id: string,
   data: Partial<PaymentHistoryEntryInput>,
 ): Promise<PaymentHistoryEntry> {
-  const response = await fetch(`${API_BASE_URL}/paymentHistory/${id}`, {
+  const response = await fetch(`${config.apiBaseUrl}/paymentHistory/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -74,7 +73,7 @@ export async function updatePaymentHistoryEntry(
  * Delete a payment history entry
  */
 export async function deletePaymentHistoryEntry(id: string): Promise<void> {
-  const response = await fetch(`${API_BASE_URL}/paymentHistory/${id}`, {
+  const response = await fetch(`${config.apiBaseUrl}/paymentHistory/${id}`, {
     method: 'DELETE',
   })
   if (!response.ok) {

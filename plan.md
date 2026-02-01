@@ -171,6 +171,6 @@
 
 - Each task should be completed and validated before moving to the next
 - Run tests after implementing each feature
-- Run `npx tsc` to catch type errors early
+- Run `npx tsc` and `npm run lint` to catch type errors early
 - Use DaisyUI components for consistent styling
 - Follow existing code style (Prettier config)
