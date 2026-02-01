@@ -6,6 +6,7 @@ import type { RecurringPayment } from '../types/payment'
 import { getRecurringPayments } from '../services/payment-service'
 import { calculateNextDueDate } from '../services/payment-generator'
 import { SearchInput } from './search-input'
+import { config } from '../config'
 
 type SortField = 'name' | 'cost' | 'nextDue' | 'location'
 type SortDirection = 'asc' | 'desc'
@@ -14,6 +15,55 @@ interface PaymentWithNextDue extends RecurringPayment {
   nextDueDate: string
 }
 
+//#region -------------------- Helper Functions --------------------
+function formatCurrency(amount: number): string {
+  const formatted = new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amount)
+  return `${config.currencySymbol} ${formatted}`
+}
+
+function formatDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  })
+}
+
+function getPeriodicityLabel(months: number): string {
+  if (months === 1) return 'Monthly'
+  if (months === 12) return 'Yearly'
+  return `Every ${months} months`
+}
+
+function sortResults(
+  result: PaymentWithNextDue[],
+  sortField: SortField,
+  sortDirection: SortDirection
+) {
+  result.sort((a, b) => {
+    let compareValue = 0
+    switch (sortField) {
+      case 'name':
+        compareValue = a.name.localeCompare(b.name)
+        break
+      case 'cost':
+        compareValue = a.cost - b.cost
+        break
+      case 'nextDue':
+        compareValue = a.nextDueDate.localeCompare(b.nextDueDate)
+        break
+      case 'location':
+        compareValue = a.location.localeCompare(b.location)
+        break
+    }
+    return sortDirection === 'asc' ? compareValue : -compareValue
+  })
+}
+
+//#region -------------------- Main component --------------------
 export function PaymentsTable() {
   const navigate = useNavigate()
   const [payments, setPayments] = useState<PaymentWithNextDue[]>([])
@@ -26,7 +76,6 @@ export function PaymentsTable() {
 
   const filterAndSortPayments = useCallback(() => {
     let result = [...payments]
-
     // Filter by search query
     if (searchQuery) {
       const query = searchQuery.toLowerCase()
@@ -37,29 +86,7 @@ export function PaymentsTable() {
           payment.location.toLowerCase().includes(query)
       )
     }
-
-    // Sort
-    result.sort((a, b) => {
-      let compareValue = 0
-
-      switch (sortField) {
-        case 'name':
-          compareValue = a.name.localeCompare(b.name)
-          break
-        case 'cost':
-          compareValue = a.cost - b.cost
-          break
-        case 'nextDue':
-          compareValue = a.nextDueDate.localeCompare(b.nextDueDate)
-          break
-        case 'location':
-          compareValue = a.location.localeCompare(b.location)
-          break
-      }
-
-      return sortDirection === 'asc' ? compareValue : -compareValue
-    })
-
+    sortResults(result, sortField, sortDirection)
     setFilteredPayments(result)
   }, [payments, searchQuery, sortField, sortDirection])
 
@@ -68,13 +95,11 @@ export function PaymentsTable() {
       setIsLoading(true)
       setError(null)
       const data = await getRecurringPayments()
-
       // Calculate next due date for each payment
       const paymentsWithDueDates: PaymentWithNextDue[] = data.map(payment => ({
         ...payment,
         nextDueDate: calculateNextDueDate(payment),
       }))
-
       setPayments(paymentsWithDueDates)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load payments')
@@ -91,15 +116,6 @@ export function PaymentsTable() {
     filterAndSortPayments()
   }, [filterAndSortPayments])
 
-  function handleSort(field: SortField) {
-    if (sortField === field) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
-    } else {
-      setSortField(field)
-      setSortDirection('asc')
-    }
-  }
-
   function handleRowClick(paymentId: string) {
     navigate({ to: '/payments/$paymentId', params: { paymentId } })
   }
@@ -108,25 +124,13 @@ export function PaymentsTable() {
     navigate({ to: '/payments/$paymentId', params: { paymentId: 'new' } })
   }
 
-  function formatCurrency(amount: number): string {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(amount)
-  }
-
-  function formatDate(dateString: string): string {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    })
-  }
-
-  function getPeriodicityLabel(months: number): string {
-    if (months === 1) return 'Monthly'
-    if (months === 12) return 'Yearly'
-    return `Every ${months} months`
+  function handleSort(field: SortField) {
+    if (sortField === field) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortField(field)
+      setSortDirection('asc')
+    }
   }
 
   function SortableHeader({ field, label }: { field: SortField; label: string }) {
@@ -156,6 +160,7 @@ export function PaymentsTable() {
     )
   }
 
+  //#region -------------------- Component render --------------------
   return (
     <div className="space-y-4">
       {/* Search and New Payment Button */}
@@ -209,7 +214,7 @@ export function PaymentsTable() {
                   <td className="font-medium">{payment.name}</td>
                   <td>{payment.location}</td>
                   <td>{payment.company}</td>
-                  <td>{formatCurrency(payment.cost)}</td>
+                  <td className="text-right">{formatCurrency(payment.cost)}</td>
                   <td>{getPeriodicityLabel(payment.periodicity)}</td>
                   <td>{formatDate(payment.nextDueDate)}</td>
                 </tr>
