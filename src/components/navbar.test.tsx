@@ -53,12 +53,12 @@ function renderWithRouter(initialPath = '/') {
 describe('Navbar', () => {
   it('renders the app title', async () => {
     renderWithRouter()
-    expect(await screen.findByText('MyApp')).toBeInTheDocument()
+    expect(await screen.findByText('PayTrack')).toBeInTheDocument()
   })
 
   it('renders navigation links for Page 1 and Page 2', async () => {
     renderWithRouter()
-    await screen.findByText('MyApp')
+    await screen.findByText('PayTrack')
     await waitFor(() => {
       const page1Links = screen.getAllByText('Page 1')
       const page2Links = screen.getAllByText('Page 2')
@@ -74,7 +74,7 @@ describe('Navbar', () => {
 
   it('app title links to root path', async () => {
     renderWithRouter()
-    const titleLink = await screen.findByText('MyApp')
+    const titleLink = await screen.findByText('PayTrack')
     expect(titleLink.closest('a')).toHaveAttribute('href', '/')
   })
 })

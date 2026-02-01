@@ -34,7 +34,7 @@ export function Navbar({ links }: NavbarProps) {
           </ul>
         </div>
         <Link to="/" className="btn btn-ghost text-xl">
-          MyApp
+          PayTrack
         </Link>
       </div>
       {/*--------------- Desktop menu ---------------*/}
@@ -49,7 +49,7 @@ export function Navbar({ links }: NavbarProps) {
           ))}
         </ul>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end me-4">
         <ThemeToggle />
       </div>
     </div>

@@ -1,40 +1,17 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { Plus, Search, ArrowUpDown } from 'lucide-react'
+import { Plus, ArrowUpDown } from 'lucide-react'
+
 import type { RecurringPayment } from '../types/payment'
 import { getRecurringPayments } from '../services/payment-service'
 import { calculateNextDueDate } from '../services/payment-generator'
+import { SearchInput } from './search-input'
 
 type SortField = 'name' | 'cost' | 'nextDue' | 'location'
 type SortDirection = 'asc' | 'desc'
 
 interface PaymentWithNextDue extends RecurringPayment {
   nextDueDate: string
-}
-
-interface SearchInputProps {
-  value: string
-  onChange: (value: string) => void
-  placeholder?: string
-}
-
-function SearchInput({ value, onChange, placeholder }: SearchInputProps) {
-  return (
-    <div className="form-control w-full sm:w-96">
-      <div className="input-group">
-        <span className="bg-base-200">
-          <Search className="h-5 w-5" />
-        </span>
-        <input
-          type="text"
-          placeholder={placeholder}
-          className="input input-bordered w-full"
-          value={value}
-          onChange={e => onChange(e.target.value)}
-        />
-      </div>
-    </div>
-  )
 }
 
 export function PaymentsTable() {
@@ -57,7 +34,7 @@ export function PaymentsTable() {
         payment =>
           payment.name.toLowerCase().includes(query) ||
           payment.company.toLowerCase().includes(query) ||
-          payment.location.toLowerCase().includes(query),
+          payment.location.toLowerCase().includes(query)
       )
     }
 
@@ -152,19 +129,10 @@ export function PaymentsTable() {
     return `Every ${months} months`
   }
 
-  function SortableHeader({
-    field,
-    label,
-  }: {
-    field: SortField
-    label: string
-  }) {
+  function SortableHeader({ field, label }: { field: SortField; label: string }) {
     return (
       <th>
-        <button
-          className="btn btn-ghost btn-sm"
-          onClick={() => handleSort(field)}
-        >
+        <button className="btn btn-ghost btn-sm" onClick={() => handleSort(field)}>
           {label}
           <ArrowUpDown className="h-4 w-4" />
         </button>
@@ -205,9 +173,11 @@ export function PaymentsTable() {
 
       {/* Payments Table */}
       {filteredPayments.length === 0 ? (
-        <div className="text-center py-12">
+        <div className="py-12 text-center">
           <p className="text-base-content/70">
-            {searchQuery ? 'No payments found matching your search.' : 'No recurring payments yet.'}
+            {searchQuery
+              ? 'No payments found matching your search.'
+              : 'No recurring payments yet.'}
           </p>
           {!searchQuery && (
             <button className="btn btn-primary mt-4" onClick={handleNewPayment}>
@@ -218,7 +188,7 @@ export function PaymentsTable() {
         </div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table table-zebra">
+          <table className="table-zebra table">
             <thead>
               <tr>
                 <SortableHeader field="name" label="Name" />
@@ -233,7 +203,7 @@ export function PaymentsTable() {
               {filteredPayments.map(payment => (
                 <tr
                   key={payment.id}
-                  className="cursor-pointer hover:bg-base-200"
+                  className="hover:bg-base-200 cursor-pointer"
                   onClick={() => handleRowClick(payment.id)}
                 >
                   <td className="font-medium">{payment.name}</td>
@@ -251,8 +221,9 @@ export function PaymentsTable() {
 
       {/* Summary */}
       {filteredPayments.length > 0 && (
-        <div className="text-sm text-base-content/70">
-          Showing {filteredPayments.length} of {payments.length} payment{payments.length !== 1 ? 's' : ''}
+        <div className="text-base-content/70 text-sm">
+          Showing {filteredPayments.length} of {payments.length} payment
+          {payments.length !== 1 ? 's' : ''}
         </div>
       )}
     </div>
