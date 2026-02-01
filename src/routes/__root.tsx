@@ -2,6 +2,7 @@ import { createRootRoute, Outlet } from '@tanstack/react-router'
 import { Navbar, type NavLink } from '../components/navbar'
 
 const navLinks: NavLink[] = [
+  { to: '/payments', label: 'Payments' },
   { to: '/page1', label: 'Page 1' },
   { to: '/page2', label: 'Page 2' },
 ]

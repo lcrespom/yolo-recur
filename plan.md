@@ -32,30 +32,30 @@
   - `generateDuePayments()` - auto-generate payment history entries based on due dates
   - Helper functions for date calculations
 
-## Phase 2: Payments List Page
+## Phase 2: Payments List Page ✅
 
 ### Route & Component
 
-- [ ] Create `src/routes/payments/index.tsx` - payments list route
-- [ ] Create `src/components/payments-table.tsx` - table component displaying all
+- [x] Create `src/routes/payments/index.tsx` - payments list route
+- [x] Create `src/components/payments-table.tsx` - table component displaying all
       recurring payments
-- [ ] Add click handler to navigate to detail page
-- [ ] Add "New Payment" button
-- [ ] Update navigation links in `__root.tsx`
+- [x] Add click handler to navigate to detail page
+- [x] Add "New Payment" button
+- [x] Update navigation links in `__root.tsx`
 
 ### Styling & Features
 
-- [ ] Style table with DaisyUI table classes
-- [ ] Add sorting capabilities (by name, cost, next due date)
-- [ ] Add search/filter functionality
-- [ ] Show next payment due date for each recurring payment
+- [x] Style table with DaisyUI table classes
+- [x] Add sorting capabilities (by name, cost, next due date)
+- [x] Add search/filter functionality
+- [x] Show next payment due date for each recurring payment
 
 ### Testing
 
-- [ ] Create `src/components/payments-table.test.tsx`
-- [ ] Test table rendering with mock data
-- [ ] Test navigation on row click
-- [ ] Run `npx tsc` to validate types
+- [x] Create `src/components/payments-table.test.tsx`
+- [x] Test table rendering with mock data
+- [x] Test navigation on row click
+- [x] Run `npx tsc` to validate types
 
 ## Phase 3: Payment Detail/Editor Page
 

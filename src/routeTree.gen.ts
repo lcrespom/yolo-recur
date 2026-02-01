@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as Page2RouteImport } from './routes/page2'
 import { Route as Page1RouteImport } from './routes/page1'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PaymentsIndexRouteImport } from './routes/payments/index'
+import { Route as PaymentsPaymentIdRouteImport } from './routes/payments/$paymentId'
 
 const Page2Route = Page2RouteImport.update({
   id: '/page2',
@@ -28,35 +30,59 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PaymentsIndexRoute = PaymentsIndexRouteImport.update({
+  id: '/payments/',
+  path: '/payments/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentsPaymentIdRoute = PaymentsPaymentIdRouteImport.update({
+  id: '/payments/$paymentId',
+  path: '/payments/$paymentId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/page1': typeof Page1Route
   '/page2': typeof Page2Route
+  '/payments/$paymentId': typeof PaymentsPaymentIdRoute
+  '/payments/': typeof PaymentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/page1': typeof Page1Route
   '/page2': typeof Page2Route
+  '/payments/$paymentId': typeof PaymentsPaymentIdRoute
+  '/payments': typeof PaymentsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/page1': typeof Page1Route
   '/page2': typeof Page2Route
+  '/payments/$paymentId': typeof PaymentsPaymentIdRoute
+  '/payments/': typeof PaymentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/page1' | '/page2'
+  fullPaths: '/' | '/page1' | '/page2' | '/payments/$paymentId' | '/payments/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/page1' | '/page2'
-  id: '__root__' | '/' | '/page1' | '/page2'
+  to: '/' | '/page1' | '/page2' | '/payments/$paymentId' | '/payments'
+  id:
+    | '__root__'
+    | '/'
+    | '/page1'
+    | '/page2'
+    | '/payments/$paymentId'
+    | '/payments/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   Page1Route: typeof Page1Route
   Page2Route: typeof Page2Route
+  PaymentsPaymentIdRoute: typeof PaymentsPaymentIdRoute
+  PaymentsIndexRoute: typeof PaymentsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +108,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/payments/': {
+      id: '/payments/'
+      path: '/payments'
+      fullPath: '/payments/'
+      preLoaderRoute: typeof PaymentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payments/$paymentId': {
+      id: '/payments/$paymentId'
+      path: '/payments/$paymentId'
+      fullPath: '/payments/$paymentId'
+      preLoaderRoute: typeof PaymentsPaymentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +129,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   Page1Route: Page1Route,
   Page2Route: Page2Route,
+  PaymentsPaymentIdRoute: PaymentsPaymentIdRoute,
+  PaymentsIndexRoute: PaymentsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
