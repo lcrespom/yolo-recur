@@ -17,7 +17,7 @@ interface PaymentWithNextDue extends RecurringPayment {
 
 //#region -------------------- Helper Functions --------------------
 function formatCurrency(amount: number): string {
-  const formatted = new Intl.NumberFormat('en-US', {
+  const formatted = new Intl.NumberFormat(undefined, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(amount)
@@ -25,7 +25,7 @@ function formatCurrency(amount: number): string {
 }
 
 function formatDate(dateString: string): string {
-  return new Date(dateString).toLocaleDateString('en-US', {
+  return new Date(dateString).toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -133,9 +133,17 @@ export function PaymentsTable() {
     }
   }
 
-  function SortableHeader({ field, label }: { field: SortField; label: string }) {
+  function SortableHeader({
+    field,
+    label,
+    className,
+  }: {
+    field: SortField
+    label: string
+    className?: string
+  }) {
     return (
-      <th>
+      <th className={className}>
         <button className="btn btn-ghost btn-sm" onClick={() => handleSort(field)}>
           {label}
           <ArrowUpDown className="h-4 w-4" />
@@ -199,9 +207,9 @@ export function PaymentsTable() {
                 <SortableHeader field="name" label="Name" />
                 <SortableHeader field="location" label="Location" />
                 <th>Company</th>
-                <SortableHeader field="cost" label="Cost" />
-                <th>Frequency</th>
-                <SortableHeader field="nextDue" label="Next Due" />
+                <SortableHeader field="cost" label="Cost" className="text-right" />
+                <th className="text-center">Frequency</th>
+                <SortableHeader field="nextDue" label="Next Due" className="text-right" />
               </tr>
             </thead>
             <tbody>
@@ -215,8 +223,10 @@ export function PaymentsTable() {
                   <td>{payment.location}</td>
                   <td>{payment.company}</td>
                   <td className="text-right">{formatCurrency(payment.cost)}</td>
-                  <td>{getPeriodicityLabel(payment.periodicity)}</td>
-                  <td>{formatDate(payment.nextDueDate)}</td>
+                  <td className="text-center">
+                    {getPeriodicityLabel(payment.periodicity)}
+                  </td>
+                  <td className="text-right">{formatDate(payment.nextDueDate)}</td>
                 </tr>
               ))}
             </tbody>
