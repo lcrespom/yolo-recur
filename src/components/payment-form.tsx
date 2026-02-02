@@ -173,12 +173,12 @@ export function PaymentForm({
   return (
     <div className="card bg-base-200">
       <div className="card-body">
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-8">
           {/* Name and Location */}
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Name *</span>
+              <label className="label mb-2 block">
+                <span className="label-text font-medium">Name *</span>
               </label>
               <input
                 type="text"
@@ -195,8 +195,8 @@ export function PaymentForm({
             </div>
 
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Location *</span>
+              <label className="label mb-2 block">
+                <span className="label-text font-medium">Location *</span>
               </label>
               <input
                 type="text"
@@ -214,10 +214,10 @@ export function PaymentForm({
           </div>
 
           {/* Company and Bank */}
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Company *</span>
+              <label className="label mb-2 block">
+                <span className="label-text font-medium">Company *</span>
               </label>
               <input
                 type="text"
@@ -234,8 +234,8 @@ export function PaymentForm({
             </div>
 
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Bank</span>
+              <label className="label mb-2 block">
+                <span className="label-text font-medium">Bank</span>
               </label>
               <input
                 type="text"
@@ -248,10 +248,10 @@ export function PaymentForm({
           </div>
 
           {/* Website and Phone */}
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Website</span>
+              <label className="label mb-2 block">
+                <span className="label-text font-medium">Website</span>
               </label>
               <input
                 type="url"
@@ -263,8 +263,8 @@ export function PaymentForm({
             </div>
 
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Phone</span>
+              <label className="label mb-2 block">
+                <span className="label-text font-medium">Phone</span>
               </label>
               <input
                 type="tel"
@@ -277,10 +277,10 @@ export function PaymentForm({
           </div>
 
           {/* Cost and Periodicity */}
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Cost *</span>
+              <label className="label mb-2 block">
+                <span className="label-text font-medium">Cost *</span>
               </label>
               <input
                 type="number"
@@ -298,8 +298,8 @@ export function PaymentForm({
             </div>
 
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Periodicity (months) *</span>
+              <label className="label mb-2 block">
+                <span className="label-text font-medium">Periodicity *</span>
               </label>
               <select
                 className={`select select-bordered ${errors.periodicity ? 'select-error' : ''}`}
@@ -318,10 +318,13 @@ export function PaymentForm({
                 </label>
               )}
             </div>
+          </div>
 
+          {/* Payment Day and Payment Start Month */}
+          <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Payment Day *</span>
+              <label className="label mb-2 block">
+                <span className="label-text font-medium">Payment Day *</span>
               </label>
               <input
                 type="number"
@@ -338,36 +341,35 @@ export function PaymentForm({
                 </label>
               )}
             </div>
-          </div>
 
-          {/* Payment Start Month */}
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Payment Start Month *</span>
-            </label>
-            <select
-              className={`select select-bordered ${errors.paymentMonth ? 'select-error' : ''}`}
-              value={formData.paymentMonth}
-              onChange={e => updateField('paymentMonth', parseInt(e.target.value))}
-            >
-              <option value={1}>January</option>
-              <option value={2}>February</option>
-              <option value={3}>March</option>
-              <option value={4}>April</option>
-              <option value={5}>May</option>
-              <option value={6}>June</option>
-              <option value={7}>July</option>
-              <option value={8}>August</option>
-              <option value={9}>September</option>
-              <option value={10}>October</option>
-              <option value={11}>November</option>
-              <option value={12}>December</option>
-            </select>
-            {errors.paymentMonth && (
-              <label className="label">
-                <span className="label-text-alt text-error">{errors.paymentMonth}</span>
+            <div className="form-control">
+              <label className="label mb-2 block">
+                <span className="label-text font-medium">Payment Start Month *</span>
               </label>
-            )}
+              <select
+                className={`select select-bordered ${errors.paymentMonth ? 'select-error' : ''}`}
+                value={formData.paymentMonth}
+                onChange={e => updateField('paymentMonth', parseInt(e.target.value))}
+              >
+                <option value={1}>January</option>
+                <option value={2}>February</option>
+                <option value={3}>March</option>
+                <option value={4}>April</option>
+                <option value={5}>May</option>
+                <option value={6}>June</option>
+                <option value={7}>July</option>
+                <option value={8}>August</option>
+                <option value={9}>September</option>
+                <option value={10}>October</option>
+                <option value={11}>November</option>
+                <option value={12}>December</option>
+              </select>
+              {errors.paymentMonth && (
+                <label className="label">
+                  <span className="label-text-alt text-error">{errors.paymentMonth}</span>
+                </label>
+              )}
+            </div>
           </div>
 
           {/* Form Actions */}
