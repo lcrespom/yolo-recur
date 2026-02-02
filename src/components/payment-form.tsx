@@ -1,30 +1,21 @@
 import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Save, Trash2, X } from 'lucide-react'
 
-import type { RecurringPayment, RecurringPaymentInput } from '../types/payment'
+import type { RecurringPayment } from '../types/payment'
 import {
   createRecurringPayment,
   updateRecurringPayment,
   deleteRecurringPayment,
 } from '../services/payment-service'
+import { paymentFormSchema, type PaymentFormData } from '../validation/payment-schema'
 
 interface PaymentFormProps {
   payment: RecurringPayment | null
   onSaveSuccess: () => void
   onDeleteSuccess: () => void
   onCancel: () => void
-}
-
-type FormData = RecurringPaymentInput
-
-interface FormErrors {
-  name?: string
-  location?: string
-  company?: string
-  cost?: string
-  periodicity?: string
-  paymentMonth?: string
-  paymentDay?: string
 }
 
 export function PaymentForm({
@@ -35,29 +26,33 @@ export function PaymentForm({
 }: PaymentFormProps) {
   const isNew = !payment
 
-  const [formData, setFormData] = useState<FormData>(() => ({
-    name: payment?.name || '',
-    location: payment?.location || '',
-    company: payment?.company || '',
-    website: payment?.website || '',
-    phone: payment?.phone || '',
-    periodicity: payment?.periodicity || 1,
-    paymentMonth: payment?.paymentMonth || 1,
-    paymentDay: payment?.paymentDay || 1,
-    cost: payment?.cost || 0,
-    bank: payment?.bank || '',
-  }))
+  const {
+    register,
+    handleSubmit: handleFormSubmit,
+    formState: { errors, isDirty, isSubmitting },
+    reset,
+  } = useForm<PaymentFormData>({
+    resolver: zodResolver(paymentFormSchema),
+    defaultValues: {
+      name: payment?.name || '',
+      location: payment?.location || '',
+      company: payment?.company || '',
+      website: payment?.website || '',
+      phone: payment?.phone || '',
+      periodicity: payment?.periodicity || 1,
+      paymentMonth: payment?.paymentMonth || 1,
+      paymentDay: payment?.paymentDay || 1,
+      cost: payment?.cost || 0,
+      bank: payment?.bank || '',
+    },
+  })
 
-  const [originalData, setOriginalData] = useState<FormData>(formData)
-  const [errors, setErrors] = useState<FormErrors>({})
-  const [isSaving, setIsSaving] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
 
-  // Update form data when payment prop changes
+  // Update form when payment prop changes
   useEffect(() => {
     if (payment) {
-      const data: FormData = {
+      reset({
         name: payment.name,
         location: payment.location,
         company: payment.company,
@@ -68,72 +63,20 @@ export function PaymentForm({
         paymentDay: payment.paymentDay,
         cost: payment.cost,
         bank: payment.bank,
-      }
-      setFormData(data)
-      setOriginalData(data)
+      })
     }
-  }, [payment])
+  }, [payment, reset])
 
-  // Detect unsaved changes
-  useEffect(() => {
-    const changed = JSON.stringify(formData) !== JSON.stringify(originalData)
-    setHasUnsavedChanges(changed)
-  }, [formData, originalData])
-
-  function validateForm(): boolean {
-    const newErrors: FormErrors = {}
-
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required'
-    }
-
-    if (!formData.location.trim()) {
-      newErrors.location = 'Location is required'
-    }
-
-    if (!formData.company.trim()) {
-      newErrors.company = 'Company is required'
-    }
-
-    if (formData.cost <= 0) {
-      newErrors.cost = 'Cost must be greater than 0'
-    }
-
-    if (formData.periodicity < 1) {
-      newErrors.periodicity = 'Periodicity must be at least 1 month'
-    }
-
-    if (formData.paymentMonth < 1 || formData.paymentMonth > 12) {
-      newErrors.paymentMonth = 'Payment month must be between 1 and 12'
-    }
-
-    if (formData.paymentDay < 1 || formData.paymentDay > 31) {
-      newErrors.paymentDay = 'Payment day must be between 1 and 31'
-    }
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-
-    if (!validateForm()) {
-      return
-    }
-
+  async function handleSubmit(data: PaymentFormData) {
     try {
-      setIsSaving(true)
       if (isNew) {
-        await createRecurringPayment(formData)
+        await createRecurringPayment(data)
       } else {
-        await updateRecurringPayment(payment.id, formData)
+        await updateRecurringPayment(payment.id, data)
       }
       onSaveSuccess()
     } catch (err) {
       alert(err instanceof Error ? err.message : 'Failed to save payment')
-    } finally {
-      setIsSaving(false)
     }
   }
 
@@ -141,19 +84,17 @@ export function PaymentForm({
     if (!payment) return
 
     try {
-      setIsSaving(true)
       await deleteRecurringPayment(payment.id)
       onDeleteSuccess()
     } catch (err) {
       alert(err instanceof Error ? err.message : 'Failed to delete payment')
     } finally {
-      setIsSaving(false)
       setShowDeleteModal(false)
     }
   }
 
   function handleCancel() {
-    if (hasUnsavedChanges) {
+    if (isDirty) {
       if (confirm('You have unsaved changes. Are you sure you want to leave?')) {
         onCancel()
       }
@@ -162,18 +103,10 @@ export function PaymentForm({
     }
   }
 
-  function updateField<K extends keyof FormData>(field: K, value: FormData[K]) {
-    setFormData(prev => ({ ...prev, [field]: value }))
-    // Clear error for this field when user starts typing
-    if (errors[field as keyof FormErrors]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }))
-    }
-  }
-
   return (
     <div className="card bg-base-200">
       <div className="card-body">
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleFormSubmit(handleSubmit)} className="space-y-6">
           {/* Name and Location */}
           <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
             <div className="form-control">
@@ -183,13 +116,12 @@ export function PaymentForm({
               <input
                 type="text"
                 className={`input input-bordered ${errors.name ? 'input-error' : ''}`}
-                value={formData.name}
-                onChange={e => updateField('name', e.target.value)}
+                {...register('name')}
                 placeholder="e.g., Netflix Subscription"
               />
               {errors.name && (
                 <label className="label">
-                  <span className="label-text-alt text-error">{errors.name}</span>
+                  <span className="label-text-alt text-error">{errors.name.message}</span>
                 </label>
               )}
             </div>
@@ -201,13 +133,12 @@ export function PaymentForm({
               <input
                 type="text"
                 className={`input input-bordered ${errors.location ? 'input-error' : ''}`}
-                value={formData.location}
-                onChange={e => updateField('location', e.target.value)}
+                {...register('location')}
                 placeholder="e.g., Home, Office, Personal"
               />
               {errors.location && (
                 <label className="label">
-                  <span className="label-text-alt text-error">{errors.location}</span>
+                  <span className="label-text-alt text-error">{errors.location.message}</span>
                 </label>
               )}
             </div>
@@ -222,13 +153,12 @@ export function PaymentForm({
               <input
                 type="text"
                 className={`input input-bordered ${errors.company ? 'input-error' : ''}`}
-                value={formData.company}
-                onChange={e => updateField('company', e.target.value)}
+                {...register('company')}
                 placeholder="e.g., Netflix"
               />
               {errors.company && (
                 <label className="label">
-                  <span className="label-text-alt text-error">{errors.company}</span>
+                  <span className="label-text-alt text-error">{errors.company.message}</span>
                 </label>
               )}
             </div>
@@ -240,8 +170,7 @@ export function PaymentForm({
               <input
                 type="text"
                 className="input input-bordered"
-                value={formData.bank}
-                onChange={e => updateField('bank', e.target.value)}
+                {...register('bank')}
                 placeholder="e.g., Chase, Wells Fargo"
               />
             </div>
@@ -256,8 +185,7 @@ export function PaymentForm({
               <input
                 type="url"
                 className="input input-bordered"
-                value={formData.website}
-                onChange={e => updateField('website', e.target.value)}
+                {...register('website')}
                 placeholder="https://example.com"
               />
             </div>
@@ -269,8 +197,7 @@ export function PaymentForm({
               <input
                 type="tel"
                 className="input input-bordered"
-                value={formData.phone}
-                onChange={e => updateField('phone', e.target.value)}
+                {...register('phone')}
                 placeholder="(555) 123-4567"
               />
             </div>
@@ -286,13 +213,12 @@ export function PaymentForm({
                 type="number"
                 step="0.01"
                 className={`input input-bordered ${errors.cost ? 'input-error' : ''}`}
-                value={formData.cost}
-                onChange={e => updateField('cost', parseFloat(e.target.value) || 0)}
+                {...register('cost', { valueAsNumber: true })}
                 placeholder="0.00"
               />
               {errors.cost && (
                 <label className="label">
-                  <span className="label-text-alt text-error">{errors.cost}</span>
+                  <span className="label-text-alt text-error">{errors.cost.message}</span>
                 </label>
               )}
             </div>
@@ -303,8 +229,7 @@ export function PaymentForm({
               </label>
               <select
                 className={`select select-bordered ${errors.periodicity ? 'select-error' : ''}`}
-                value={formData.periodicity}
-                onChange={e => updateField('periodicity', parseInt(e.target.value))}
+                {...register('periodicity', { valueAsNumber: true })}
               >
                 <option value={1}>Monthly (1)</option>
                 <option value={2}>Every 2 months</option>
@@ -314,7 +239,7 @@ export function PaymentForm({
               </select>
               {errors.periodicity && (
                 <label className="label">
-                  <span className="label-text-alt text-error">{errors.periodicity}</span>
+                  <span className="label-text-alt text-error">{errors.periodicity.message}</span>
                 </label>
               )}
             </div>
@@ -331,13 +256,12 @@ export function PaymentForm({
                 min="1"
                 max="31"
                 className={`input input-bordered ${errors.paymentDay ? 'input-error' : ''}`}
-                value={formData.paymentDay}
-                onChange={e => updateField('paymentDay', parseInt(e.target.value) || 1)}
+                {...register('paymentDay', { valueAsNumber: true })}
                 placeholder="1-31"
               />
               {errors.paymentDay && (
                 <label className="label">
-                  <span className="label-text-alt text-error">{errors.paymentDay}</span>
+                  <span className="label-text-alt text-error">{errors.paymentDay.message}</span>
                 </label>
               )}
             </div>
@@ -348,8 +272,7 @@ export function PaymentForm({
               </label>
               <select
                 className={`select select-bordered ${errors.paymentMonth ? 'select-error' : ''}`}
-                value={formData.paymentMonth}
-                onChange={e => updateField('paymentMonth', parseInt(e.target.value))}
+                {...register('paymentMonth', { valueAsNumber: true })}
               >
                 <option value={1}>January</option>
                 <option value={2}>February</option>
@@ -366,7 +289,7 @@ export function PaymentForm({
               </select>
               {errors.paymentMonth && (
                 <label className="label">
-                  <span className="label-text-alt text-error">{errors.paymentMonth}</span>
+                  <span className="label-text-alt text-error">{errors.paymentMonth.message}</span>
                 </label>
               )}
             </div>
@@ -377,10 +300,10 @@ export function PaymentForm({
             <button
               type="submit"
               className="btn btn-primary"
-              disabled={isSaving || (!isNew && !hasUnsavedChanges)}
+              disabled={isSubmitting || (!isNew && !isDirty)}
             >
               <Save className="h-4 w-4" />
-              {isSaving ? 'Saving...' : 'Save'}
+              {isSubmitting ? 'Saving...' : 'Save'}
             </button>
 
             <button type="button" className="btn btn-ghost" onClick={handleCancel}>
@@ -393,7 +316,7 @@ export function PaymentForm({
                 type="button"
                 className="btn btn-error ml-auto"
                 onClick={() => setShowDeleteModal(true)}
-                disabled={isSaving}
+                disabled={isSubmitting}
               >
                 <Trash2 className="h-4 w-4" />
                 Delete
@@ -416,8 +339,8 @@ export function PaymentForm({
               <button className="btn btn-ghost" onClick={() => setShowDeleteModal(false)}>
                 Cancel
               </button>
-              <button className="btn btn-error" onClick={handleDelete} disabled={isSaving}>
-                {isSaving ? 'Deleting...' : 'Delete'}
+              <button className="btn btn-error" onClick={handleDelete} disabled={isSubmitting}>
+                {isSubmitting ? 'Deleting...' : 'Delete'}
               </button>
             </div>
           </div>

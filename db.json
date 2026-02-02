@@ -34,7 +34,7 @@
       "website": "https://securehome.example.com",
       "phone": "555-0300",
       "periodicity": 12,
-      "paymentMonth": 3,
+      "paymentMonth": 5,
       "paymentDay": 1,
       "cost": 1200,
       "bank": "Wells Fargo"
