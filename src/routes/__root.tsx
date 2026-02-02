@@ -1,7 +1,10 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
 import { Navbar, type NavLink } from '../components/navbar'
 
-const navLinks: NavLink[] = [{ to: '/payments', label: 'Payments' }]
+const navLinks: NavLink[] = [
+  { to: '/dashboard', label: 'Dashboard' },
+  { to: '/payments', label: 'Payments' },
+]
 
 export const Route = createRootRoute({
   component: RootLayout,

@@ -103,31 +103,31 @@
 
 ### Route & Component
 
-- [ ] Create `src/routes/dashboard/index.tsx` - dashboard route
-- [ ] Create `src/components/expenses-summary.tsx` - summary cards component
-- [ ] Create `src/components/expenses-by-location.tsx` - location breakdown
+- [x] Create `src/routes/dashboard/index.tsx` - dashboard route
+- [x] Create `src/components/expenses-summary.tsx` - summary cards component
+- [x] Create `src/components/expenses-by-location.tsx` - location breakdown
 - [ ] Create `src/components/expenses-chart.tsx` (optional) - visual representation
 
 ### Features
 
-- [ ] Calculate total expenses (monthly, yearly)
-- [ ] Group expenses by location
-- [ ] Group expenses by company
-- [ ] Show upcoming payments
+- [x] Calculate total expenses (monthly, yearly)
+- [x] Group expenses by location
+- [ ] Group expenses by company (similar to location grouping)
+- [x] Show upcoming payments (unpaid payment history entries)
 - [ ] Display cost trends
 
 ### Styling
 
-- [ ] Use DaisyUI stats/cards for summaries
-- [ ] Create responsive grid layout
-- [ ] Add proper spacing and visual hierarchy
+- [x] Use DaisyUI stats/cards for summaries
+- [x] Create responsive grid layout
+- [x] Add proper spacing and visual hierarchy
 
 ### Testing
 
-- [ ] Create tests for dashboard components
-- [ ] Test calculation logic
-- [ ] Test grouping/filtering
-- [ ] Run `npx tsc` to validate types
+- [x] Create tests for dashboard components
+- [x] Test calculation logic
+- [x] Test grouping/filtering
+- [x] Run `npx tsc` to validate types
 
 ## Phase 5: Auto-Payment Generation
 
