@@ -10,6 +10,7 @@ import {
   deleteRecurringPayment,
 } from '../services/payment-service'
 import { paymentFormSchema, type PaymentFormData } from '../validation/payment-schema'
+import { FormInput } from './form-input'
 
 interface PaymentFormProps {
   payment: RecurringPayment | null
@@ -51,20 +52,7 @@ export function PaymentForm({
 
   // Update form when payment prop changes
   useEffect(() => {
-    if (payment) {
-      reset({
-        name: payment.name,
-        location: payment.location,
-        company: payment.company,
-        website: payment.website,
-        phone: payment.phone,
-        periodicity: payment.periodicity,
-        paymentMonth: payment.paymentMonth,
-        paymentDay: payment.paymentDay,
-        cost: payment.cost,
-        bank: payment.bank,
-      })
-    }
+    if (payment) reset({ ...payment })
   }, [payment, reset])
 
   async function handleSubmit(data: PaymentFormData) {
@@ -109,97 +97,68 @@ export function PaymentForm({
         <form onSubmit={handleFormSubmit(handleSubmit)} className="space-y-6">
           {/* Name and Location */}
           <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
-            <label className="form-control">
-              <span className="label-text mb-2 block">Name *</span>
-              <input
-                type="text"
-                className={`input input-bordered ${errors.name ? 'input-error' : ''}`}
-                {...register('name')}
-                placeholder="e.g., Netflix Subscription"
-              />
-              {errors.name && (
-                <div className="mt-1 text-sm text-error">{errors.name.message}</div>
-              )}
-            </label>
+            <FormInput
+              label="Name *"
+              registration={register('name')}
+              error={errors.name}
+              type="text"
+              placeholder="e.g., Netflix Subscription"
+            />
 
-            <label className="form-control">
-              <span className="label-text mb-2 block">Location *</span>
-              <input
-                type="text"
-                className={`input input-bordered ${errors.location ? 'input-error' : ''}`}
-                {...register('location')}
-                placeholder="e.g., Home, Office, Personal"
-              />
-              {errors.location && (
-                <div className="mt-1 text-sm text-error">{errors.location.message}</div>
-              )}
-            </label>
+            <FormInput
+              label="Location *"
+              registration={register('location')}
+              error={errors.location}
+              type="text"
+              placeholder="e.g., Home, Office, Personal"
+            />
           </div>
 
           {/* Company and Bank */}
           <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
-            <label className="form-control">
-              <span className="label-text mb-2 block">Company *</span>
-              <input
-                type="text"
-                className={`input input-bordered ${errors.company ? 'input-error' : ''}`}
-                {...register('company')}
-                placeholder="e.g., Netflix"
-              />
-              {errors.company && (
-                <div className="mt-1 text-sm text-error">{errors.company.message}</div>
-              )}
-            </label>
+            <FormInput
+              label="Company *"
+              registration={register('company')}
+              error={errors.company}
+              type="text"
+              placeholder="e.g., Netflix"
+            />
 
-            <label className="form-control">
-              <span className="label-text mb-2 block">Bank</span>
-              <input
-                type="text"
-                className="input input-bordered"
-                {...register('bank')}
-                placeholder="e.g., Chase, Wells Fargo"
-              />
-            </label>
+            <FormInput
+              label="Bank"
+              registration={register('bank')}
+              type="text"
+              placeholder="e.g., Chase, Wells Fargo"
+            />
           </div>
 
           {/* Website and Phone */}
           <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
-            <label className="form-control">
-              <span className="label-text mb-2 block">Website</span>
-              <input
-                type="url"
-                className="input input-bordered"
-                {...register('website')}
-                placeholder="https://example.com"
-              />
-            </label>
+            <FormInput
+              label="Website"
+              registration={register('website')}
+              type="url"
+              placeholder="https://example.com"
+            />
 
-            <label className="form-control">
-              <span className="label-text mb-2 block">Phone</span>
-              <input
-                type="tel"
-                className="input input-bordered"
-                {...register('phone')}
-                placeholder="(555) 123-4567"
-              />
-            </label>
+            <FormInput
+              label="Phone"
+              registration={register('phone')}
+              type="tel"
+              placeholder="(555) 123-4567"
+            />
           </div>
 
           {/* Cost and Periodicity */}
           <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
-            <label className="form-control">
-              <span className="label-text mb-2 block">Cost *</span>
-              <input
-                type="number"
-                step="0.01"
-                className={`input input-bordered ${errors.cost ? 'input-error' : ''}`}
-                {...register('cost', { valueAsNumber: true })}
-                placeholder="0.00"
-              />
-              {errors.cost && (
-                <div className="mt-1 text-sm text-error">{errors.cost.message}</div>
-              )}
-            </label>
+            <FormInput
+              label="Cost *"
+              registration={register('cost', { valueAsNumber: true })}
+              error={errors.cost}
+              type="number"
+              step="0.01"
+              placeholder="0.00"
+            />
 
             <label className="form-control">
               <span className="label-text mb-2 block">Periodicity *</span>
@@ -214,27 +173,24 @@ export function PaymentForm({
                 <option value={12}>Yearly (12)</option>
               </select>
               {errors.periodicity && (
-                <div className="mt-1 text-sm text-error">{errors.periodicity.message}</div>
+                <div className="text-error mt-1 text-sm">
+                  {errors.periodicity.message}
+                </div>
               )}
             </label>
           </div>
 
           {/* Payment Day and Payment Start Month */}
           <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
-            <label className="form-control">
-              <span className="label-text mb-2 block">Payment Day *</span>
-              <input
-                type="number"
-                min="1"
-                max="31"
-                className={`input input-bordered ${errors.paymentDay ? 'input-error' : ''}`}
-                {...register('paymentDay', { valueAsNumber: true })}
-                placeholder="1-31"
-              />
-              {errors.paymentDay && (
-                <div className="mt-1 text-sm text-error">{errors.paymentDay.message}</div>
-              )}
-            </label>
+            <FormInput
+              label="Payment Day *"
+              registration={register('paymentDay', { valueAsNumber: true })}
+              error={errors.paymentDay}
+              type="number"
+              min="1"
+              max="31"
+              placeholder="1-31"
+            />
 
             <label className="form-control">
               <span className="label-text mb-2 block">Payment Start Month *</span>
@@ -256,7 +212,9 @@ export function PaymentForm({
                 <option value={12}>December</option>
               </select>
               {errors.paymentMonth && (
-                <div className="mt-1 text-sm text-error">{errors.paymentMonth.message}</div>
+                <div className="text-error mt-1 text-sm">
+                  {errors.paymentMonth.message}
+                </div>
               )}
             </label>
           </div>
@@ -298,14 +256,18 @@ export function PaymentForm({
           <div className="modal-box">
             <h3 className="text-lg font-bold">Confirm Delete</h3>
             <p className="py-4">
-              Are you sure you want to delete this recurring payment? This action cannot be
-              undone.
+              Are you sure you want to delete this recurring payment? This action cannot
+              be undone.
             </p>
             <div className="modal-action">
               <button className="btn btn-ghost" onClick={() => setShowDeleteModal(false)}>
                 Cancel
               </button>
-              <button className="btn btn-error" onClick={handleDelete} disabled={isSubmitting}>
+              <button
+                className="btn btn-error"
+                onClick={handleDelete}
+                disabled={isSubmitting}
+              >
                 {isSubmitting ? 'Deleting...' : 'Delete'}
               </button>
             </div>
