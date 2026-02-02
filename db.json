@@ -10,7 +10,7 @@
       "periodicity": 1,
       "paymentMonth": 1,
       "paymentDay": 15,
-      "cost": 150.00,
+      "cost": 150,
       "bank": "Chase Bank"
     },
     {
@@ -36,7 +36,7 @@
       "periodicity": 12,
       "paymentMonth": 3,
       "paymentDay": 1,
-      "cost": 1200.00,
+      "cost": 1200,
       "bank": "Wells Fargo"
     }
   ],
@@ -45,14 +45,14 @@
       "id": "1",
       "recurringPaymentId": "1",
       "date": "2025-12-15",
-      "amount": 150.00,
+      "amount": 150,
       "isPaid": true
     },
     {
       "id": "2",
       "recurringPaymentId": "1",
       "date": "2026-01-15",
-      "amount": 145.50,
+      "amount": 145.5,
       "isPaid": true
     },
     {
@@ -73,7 +73,7 @@
       "id": "5",
       "recurringPaymentId": "3",
       "date": "2025-03-01",
-      "amount": 1200.00,
+      "amount": 1200,
       "isPaid": true
     }
   ]
