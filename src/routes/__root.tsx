@@ -1,11 +1,7 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
 import { Navbar, type NavLink } from '../components/navbar'
 
-const navLinks: NavLink[] = [
-  { to: '/payments', label: 'Payments' },
-  { to: '/page1', label: 'Page 1' },
-  { to: '/page2', label: 'Page 2' },
-]
+const navLinks: NavLink[] = [{ to: '/payments', label: 'Payments' }]
 
 export const Route = createRootRoute({
   component: RootLayout,
@@ -13,7 +9,7 @@ export const Route = createRootRoute({
 
 function RootLayout() {
   return (
-    <div className="min-h-screen bg-base-100">
+    <div className="bg-base-100 min-h-screen">
       <Navbar links={navLinks} />
       <main className="container mx-auto p-4">
         <Outlet />

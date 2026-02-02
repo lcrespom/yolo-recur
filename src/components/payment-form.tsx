@@ -173,7 +173,7 @@ export function PaymentForm({
   return (
     <div className="card bg-base-200">
       <div className="card-body">
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Name and Location */}
           <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
             <div className="form-control">
