@@ -57,40 +57,47 @@
 - [x] Test navigation on row click
 - [x] Run `npx tsc` to validate types
 
-## Phase 3: Payment Detail/Editor Page
+## Phase 3: Payment Detail/Editor Page ✅
 
 ### Route & Component
 
-- [ ] Create `src/routes/payments/$paymentId.tsx` - detail/edit route
-- [ ] Create `src/components/payment-form.tsx` - form component
-- [ ] Implement form validation
-- [ ] Add unsaved changes detection
+- [x] Create `src/routes/payments/$paymentId.tsx` - detail/edit route
+- [x] Create `src/components/payment-form.tsx` - form component
+- [x] Implement form validation (React Hook Form + Zod)
+- [x] Add unsaved changes detection (isDirty from React Hook Form)
 
 ### Features
 
-- [ ] Load existing payment data or initialize for new payment
-- [ ] Display/edit all payment fields (name, location, company, website, phone,
+- [x] Load existing payment data or initialize for new payment
+- [x] Display/edit all payment fields (name, location, company, website, phone,
       periodicity, etc.)
-- [ ] Show payment history section with date and amount
-- [ ] Add "Save" button (create or update)
-- [ ] Add "Delete" button with confirmation modal
-- [ ] Add "Cancel/Back" button with unsaved changes warning
-- [ ] Allow editing individual payment history entries
+- [x] Show payment history section with date and amount
+- [x] Add "Save" button (create or update)
+- [x] Add "Delete" button with confirmation modal
+- [x] Add "Cancel/Back" button with unsaved changes warning
+- [x] Allow editing individual payment history entries
 
 ### Styling
 
-- [ ] Use DaisyUI form components (input, select, textarea)
-- [ ] Create card layout for payment history
-- [ ] Implement confirmation modal with DaisyUI
+- [x] Use DaisyUI form components (input, select, textarea)
+- [x] Create card layout for payment history
+- [x] Implement confirmation modal with DaisyUI
+
+### Additional Improvements
+
+- [x] Created `FormInput` component to reduce repetition
+- [x] Used Tailwind `@apply` to create reusable `.form-row` class
+- [x] Improved accessibility with proper label wrapping
+- [x] Integrated React Hook Form for better form state management
 
 ### Testing
 
-- [ ] Create `src/components/payment-form.test.tsx`
-- [ ] Test form validation
-- [ ] Test save/update functionality
-- [ ] Test delete with confirmation
-- [ ] Test unsaved changes warning
-- [ ] Run `npx tsc` to validate types
+- [x] Create `src/components/payment-form.test.tsx`
+- [x] Test form validation
+- [x] Test save/update functionality
+- [x] Test delete with confirmation
+- [x] Test unsaved changes warning
+- [x] Run `npx tsc` to validate types
 
 ## Phase 4: Dashboard Page
 
