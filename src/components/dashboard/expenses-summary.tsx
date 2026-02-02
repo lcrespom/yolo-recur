@@ -1,5 +1,5 @@
-import type { RecurringPayment } from '../types/payment'
-import { config } from '../config'
+import type { RecurringPayment } from '../../types/payment'
+import { config } from '../../config'
 
 interface ExpensesSummaryProps {
   payments: RecurringPayment[]

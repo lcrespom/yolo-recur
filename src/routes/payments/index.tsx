@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { PaymentsTable } from '../../components/payments-table'
+import { PaymentsTable } from '../../components/payments/payments-table'
 
 export const Route = createFileRoute('/payments/')({
   component: PaymentsPage,

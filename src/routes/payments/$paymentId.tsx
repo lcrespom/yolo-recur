@@ -5,8 +5,8 @@ import { ArrowLeft } from 'lucide-react'
 import type { RecurringPayment, PaymentHistoryEntry } from '../../types/payment'
 import { getRecurringPayment } from '../../services/payment-service'
 import { getPaymentHistory } from '../../services/payment-history-service'
-import { PaymentForm } from '../../components/payment-form'
-import { PaymentHistory } from '../../components/payment-history'
+import { PaymentForm } from '../../components/payments/payment-form'
+import { PaymentHistory } from '../../components/payments/payment-history'
 
 export const Route = createFileRoute('/payments/$paymentId')({
   component: PaymentDetailPage,

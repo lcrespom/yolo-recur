@@ -1,5 +1,5 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
-import { Navbar, type NavLink } from '../components/navbar'
+import { Navbar, type NavLink } from '../components/common/navbar'
 
 const navLinks: NavLink[] = [
   { to: '/dashboard', label: 'Dashboard' },

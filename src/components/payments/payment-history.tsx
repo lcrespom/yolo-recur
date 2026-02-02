@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { Check, X, Edit2, Save } from 'lucide-react'
 
-import type { PaymentHistoryEntry } from '../types/payment'
+import type { PaymentHistoryEntry } from '../../types/payment'
 import {
   updatePaymentHistoryEntry,
   deletePaymentHistoryEntry,
-} from '../services/payment-history-service'
-import { config } from '../config'
+} from '../../services/payment-history-service'
+import { config } from '../../config'
 
 interface PaymentHistoryProps {
   paymentId: string

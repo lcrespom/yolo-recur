@@ -4,9 +4,9 @@ import { useCallback, useEffect, useState } from 'react'
 import type { RecurringPayment, PaymentHistoryEntry } from '../../types/payment'
 import { getRecurringPayments } from '../../services/payment-service'
 import { getAllPaymentHistory } from '../../services/payment-history-service'
-import { ExpensesSummary } from '../../components/expenses-summary'
-import { ExpensesByLocation } from '../../components/expenses-by-location'
-import { UpcomingPayments } from '../../components/upcoming-payments'
+import { ExpensesSummary } from '../../components/dashboard/expenses-summary'
+import { ExpensesByLocation } from '../../components/dashboard/expenses-by-location'
+import { UpcomingPayments } from '../../components/dashboard/upcoming-payments'
 
 export const Route = createFileRoute('/dashboard/')({
   component: DashboardPage,

@@ -2,11 +2,11 @@ import { render, screen, waitFor } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 import userEvent from '@testing-library/user-event'
 import { PaymentForm } from './payment-form'
-import type { RecurringPayment } from '../types/payment'
-import * as paymentService from '../services/payment-service'
+import type { RecurringPayment } from '../../types/payment'
+import * as paymentService from '../../services/payment-service'
 
 // Mock the payment service
-vi.mock('../services/payment-service', () => ({
+vi.mock('../../services/payment-service', () => ({
   createRecurringPayment: vi.fn(),
   updateRecurringPayment: vi.fn(),
   deleteRecurringPayment: vi.fn(),

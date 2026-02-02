@@ -8,11 +8,11 @@ import {
   RouterProvider,
 } from '@tanstack/react-router'
 import { PaymentsTable } from './payments-table'
-import * as paymentService from '../services/payment-service'
-import type { RecurringPayment } from '../types/payment'
+import * as paymentService from '../../services/payment-service'
+import type { RecurringPayment } from '../../types/payment'
 
 // Mock the payment service
-vi.mock('../services/payment-service')
+vi.mock('../../services/payment-service')
 
 const mockPayments: RecurringPayment[] = [
   {

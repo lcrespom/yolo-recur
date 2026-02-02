@@ -3,14 +3,14 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Save, Trash2, X } from 'lucide-react'
 
-import type { RecurringPayment } from '../types/payment'
+import type { RecurringPayment } from '../../types/payment'
 import {
   createRecurringPayment,
   updateRecurringPayment,
   deleteRecurringPayment,
-} from '../services/payment-service'
-import { paymentFormSchema, type PaymentFormData } from '../validation/payment-schema'
-import { FormInput } from './form-input'
+} from '../../services/payment-service'
+import { paymentFormSchema, type PaymentFormData } from '../../validation/payment-schema'
+import { FormInput } from '../common/form-input'
 
 interface PaymentFormProps {
   payment: RecurringPayment | null
