@@ -4,3 +4,7 @@
     light --default,
     dark --prefersdark;
 }
+
+.form-row {
+  @apply grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2;
+}

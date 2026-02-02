@@ -96,7 +96,7 @@ export function PaymentForm({
       <div className="card-body">
         <form onSubmit={handleFormSubmit(handleSubmit)} className="space-y-6">
           {/* Name and Location */}
-          <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
+          <div className="form-row">
             <FormInput
               label="Name *"
               registration={register('name')}
@@ -115,7 +115,7 @@ export function PaymentForm({
           </div>
 
           {/* Company and Bank */}
-          <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
+          <div className="form-row">
             <FormInput
               label="Company *"
               registration={register('company')}
@@ -133,7 +133,7 @@ export function PaymentForm({
           </div>
 
           {/* Website and Phone */}
-          <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
+          <div className="form-row">
             <FormInput
               label="Website"
               registration={register('website')}
@@ -150,7 +150,7 @@ export function PaymentForm({
           </div>
 
           {/* Cost and Periodicity */}
-          <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
+          <div className="form-row">
             <FormInput
               label="Cost *"
               registration={register('cost', { valueAsNumber: true })}
@@ -181,7 +181,7 @@ export function PaymentForm({
           </div>
 
           {/* Payment Day and Payment Start Month */}
-          <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
+          <div className="form-row">
             <FormInput
               label="Payment Day *"
               registration={register('paymentDay', { valueAsNumber: true })}
