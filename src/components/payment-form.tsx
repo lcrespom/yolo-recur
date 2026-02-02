@@ -109,10 +109,8 @@ export function PaymentForm({
         <form onSubmit={handleFormSubmit(handleSubmit)} className="space-y-6">
           {/* Name and Location */}
           <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
-            <div className="form-control">
-              <label className="label mb-2 block">
-                <span className="label-text font-medium">Name *</span>
-              </label>
+            <label className="form-control">
+              <span className="label-text mb-2 block">Name *</span>
               <input
                 type="text"
                 className={`input input-bordered ${errors.name ? 'input-error' : ''}`}
@@ -122,12 +120,10 @@ export function PaymentForm({
               {errors.name && (
                 <div className="mt-1 text-sm text-error">{errors.name.message}</div>
               )}
-            </div>
+            </label>
 
-            <div className="form-control">
-              <label className="label mb-2 block">
-                <span className="label-text font-medium">Location *</span>
-              </label>
+            <label className="form-control">
+              <span className="label-text mb-2 block">Location *</span>
               <input
                 type="text"
                 className={`input input-bordered ${errors.location ? 'input-error' : ''}`}
@@ -137,15 +133,13 @@ export function PaymentForm({
               {errors.location && (
                 <div className="mt-1 text-sm text-error">{errors.location.message}</div>
               )}
-            </div>
+            </label>
           </div>
 
           {/* Company and Bank */}
           <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
-            <div className="form-control">
-              <label className="label mb-2 block">
-                <span className="label-text font-medium">Company *</span>
-              </label>
+            <label className="form-control">
+              <span className="label-text mb-2 block">Company *</span>
               <input
                 type="text"
                 className={`input input-bordered ${errors.company ? 'input-error' : ''}`}
@@ -155,54 +149,46 @@ export function PaymentForm({
               {errors.company && (
                 <div className="mt-1 text-sm text-error">{errors.company.message}</div>
               )}
-            </div>
+            </label>
 
-            <div className="form-control">
-              <label className="label mb-2 block">
-                <span className="label-text font-medium">Bank</span>
-              </label>
+            <label className="form-control">
+              <span className="label-text mb-2 block">Bank</span>
               <input
                 type="text"
                 className="input input-bordered"
                 {...register('bank')}
                 placeholder="e.g., Chase, Wells Fargo"
               />
-            </div>
+            </label>
           </div>
 
           {/* Website and Phone */}
           <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
-            <div className="form-control">
-              <label className="label mb-2 block">
-                <span className="label-text font-medium">Website</span>
-              </label>
+            <label className="form-control">
+              <span className="label-text mb-2 block">Website</span>
               <input
                 type="url"
                 className="input input-bordered"
                 {...register('website')}
                 placeholder="https://example.com"
               />
-            </div>
+            </label>
 
-            <div className="form-control">
-              <label className="label mb-2 block">
-                <span className="label-text font-medium">Phone</span>
-              </label>
+            <label className="form-control">
+              <span className="label-text mb-2 block">Phone</span>
               <input
                 type="tel"
                 className="input input-bordered"
                 {...register('phone')}
                 placeholder="(555) 123-4567"
               />
-            </div>
+            </label>
           </div>
 
           {/* Cost and Periodicity */}
           <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
-            <div className="form-control">
-              <label className="label mb-2 block">
-                <span className="label-text font-medium">Cost *</span>
-              </label>
+            <label className="form-control">
+              <span className="label-text mb-2 block">Cost *</span>
               <input
                 type="number"
                 step="0.01"
@@ -213,12 +199,10 @@ export function PaymentForm({
               {errors.cost && (
                 <div className="mt-1 text-sm text-error">{errors.cost.message}</div>
               )}
-            </div>
+            </label>
 
-            <div className="form-control">
-              <label className="label mb-2 block">
-                <span className="label-text font-medium">Periodicity *</span>
-              </label>
+            <label className="form-control">
+              <span className="label-text mb-2 block">Periodicity *</span>
               <select
                 className={`select select-bordered ${errors.periodicity ? 'select-error' : ''}`}
                 {...register('periodicity', { valueAsNumber: true })}
@@ -232,15 +216,13 @@ export function PaymentForm({
               {errors.periodicity && (
                 <div className="mt-1 text-sm text-error">{errors.periodicity.message}</div>
               )}
-            </div>
+            </label>
           </div>
 
           {/* Payment Day and Payment Start Month */}
           <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
-            <div className="form-control">
-              <label className="label mb-2 block">
-                <span className="label-text font-medium">Payment Day *</span>
-              </label>
+            <label className="form-control">
+              <span className="label-text mb-2 block">Payment Day *</span>
               <input
                 type="number"
                 min="1"
@@ -252,12 +234,10 @@ export function PaymentForm({
               {errors.paymentDay && (
                 <div className="mt-1 text-sm text-error">{errors.paymentDay.message}</div>
               )}
-            </div>
+            </label>
 
-            <div className="form-control">
-              <label className="label mb-2 block">
-                <span className="label-text font-medium">Payment Start Month *</span>
-              </label>
+            <label className="form-control">
+              <span className="label-text mb-2 block">Payment Start Month *</span>
               <select
                 className={`select select-bordered ${errors.paymentMonth ? 'select-error' : ''}`}
                 {...register('paymentMonth', { valueAsNumber: true })}
@@ -278,7 +258,7 @@ export function PaymentForm({
               {errors.paymentMonth && (
                 <div className="mt-1 text-sm text-error">{errors.paymentMonth.message}</div>
               )}
-            </div>
+            </label>
           </div>
 
           {/* Form Actions */}
