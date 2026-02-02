@@ -120,9 +120,7 @@ export function PaymentForm({
                 placeholder="e.g., Netflix Subscription"
               />
               {errors.name && (
-                <label className="label">
-                  <span className="label-text-alt text-error">{errors.name.message}</span>
-                </label>
+                <div className="mt-1 text-sm text-error">{errors.name.message}</div>
               )}
             </div>
 
@@ -137,9 +135,7 @@ export function PaymentForm({
                 placeholder="e.g., Home, Office, Personal"
               />
               {errors.location && (
-                <label className="label">
-                  <span className="label-text-alt text-error">{errors.location.message}</span>
-                </label>
+                <div className="mt-1 text-sm text-error">{errors.location.message}</div>
               )}
             </div>
           </div>
@@ -157,9 +153,7 @@ export function PaymentForm({
                 placeholder="e.g., Netflix"
               />
               {errors.company && (
-                <label className="label">
-                  <span className="label-text-alt text-error">{errors.company.message}</span>
-                </label>
+                <div className="mt-1 text-sm text-error">{errors.company.message}</div>
               )}
             </div>
 
@@ -217,9 +211,7 @@ export function PaymentForm({
                 placeholder="0.00"
               />
               {errors.cost && (
-                <label className="label">
-                  <span className="label-text-alt text-error">{errors.cost.message}</span>
-                </label>
+                <div className="mt-1 text-sm text-error">{errors.cost.message}</div>
               )}
             </div>
 
@@ -238,9 +230,7 @@ export function PaymentForm({
                 <option value={12}>Yearly (12)</option>
               </select>
               {errors.periodicity && (
-                <label className="label">
-                  <span className="label-text-alt text-error">{errors.periodicity.message}</span>
-                </label>
+                <div className="mt-1 text-sm text-error">{errors.periodicity.message}</div>
               )}
             </div>
           </div>
@@ -260,9 +250,7 @@ export function PaymentForm({
                 placeholder="1-31"
               />
               {errors.paymentDay && (
-                <label className="label">
-                  <span className="label-text-alt text-error">{errors.paymentDay.message}</span>
-                </label>
+                <div className="mt-1 text-sm text-error">{errors.paymentDay.message}</div>
               )}
             </div>
 
@@ -288,9 +276,7 @@ export function PaymentForm({
                 <option value={12}>December</option>
               </select>
               {errors.paymentMonth && (
-                <label className="label">
-                  <span className="label-text-alt text-error">{errors.paymentMonth.message}</span>
-                </label>
+                <div className="mt-1 text-sm text-error">{errors.paymentMonth.message}</div>
               )}
             </div>
           </div>
