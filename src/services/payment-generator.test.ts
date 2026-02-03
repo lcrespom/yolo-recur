@@ -237,7 +237,7 @@ describe('generateDuePayments', () => {
     })
 
     // Mock no existing history
-    vi.mocked(paymentHistoryService.getAllPaymentHistory).mockResolvedValue([])
+    vi.mocked(paymentHistoryService.getPaymentHistory).mockResolvedValue([])
     vi.mocked(paymentHistoryService.createPaymentHistoryEntry).mockResolvedValue({
       id: 'new-entry',
       recurringPaymentId: 'payment-1',
@@ -263,20 +263,20 @@ describe('generateDuePayments', () => {
     })
 
     // Mock existing history
-    vi.mocked(paymentHistoryService.getAllPaymentHistory).mockResolvedValue([
+    vi.mocked(paymentHistoryService.getPaymentHistory).mockResolvedValue([
       {
         id: 'existing-1',
-        recurringPaymentId: 'payment-1',
-        date: '2024-01-15',
-        amount: 100,
-        isPaid: false,
-      },
-      {
-        id: 'existing-2',
         recurringPaymentId: 'payment-1',
         date: '2024-02-15',
         amount: 100,
         isPaid: true,
+      },
+      {
+        id: 'existing-2',
+        recurringPaymentId: 'payment-1',
+        date: '2024-01-15',
+        amount: 100,
+        isPaid: false,
       },
     ])
 
@@ -295,8 +295,15 @@ describe('generateDuePayments', () => {
       paymentDay: 15,
     })
 
-    // Mock partial history (missing Feb)
-    vi.mocked(paymentHistoryService.getAllPaymentHistory).mockResolvedValue([
+    // Mock partial history (missing Mar) - sorted desc with Feb as most recent
+    vi.mocked(paymentHistoryService.getPaymentHistory).mockResolvedValue([
+      {
+        id: 'existing-2',
+        recurringPaymentId: 'payment-1',
+        date: '2024-02-15',
+        amount: 100,
+        isPaid: true,
+      },
       {
         id: 'existing-1',
         recurringPaymentId: 'payment-1',
@@ -304,30 +311,23 @@ describe('generateDuePayments', () => {
         amount: 100,
         isPaid: true,
       },
-      {
-        id: 'existing-3',
-        recurringPaymentId: 'payment-1',
-        date: '2024-03-15',
-        amount: 100,
-        isPaid: false,
-      },
     ])
 
     vi.mocked(paymentHistoryService.createPaymentHistoryEntry).mockResolvedValue({
       id: 'new-entry',
       recurringPaymentId: 'payment-1',
-      date: '2024-02-15',
+      date: '2024-03-15',
       amount: 100,
       isPaid: false,
     })
 
     const result = await generateDuePayments([payment], new Date('2024-03-20'))
 
-    // Should create only the missing Feb entry
+    // Should create only the missing Mar entry (from last payment forward)
     expect(vi.mocked(paymentHistoryService.createPaymentHistoryEntry)).toHaveBeenCalledTimes(1)
     expect(vi.mocked(paymentHistoryService.createPaymentHistoryEntry)).toHaveBeenCalledWith({
       recurringPaymentId: 'payment-1',
-      date: '2024-02-15',
+      date: '2024-03-15',
       amount: 100,
       isPaid: false,
     })
@@ -350,7 +350,7 @@ describe('generateDuePayments', () => {
       cost: 200,
     })
 
-    vi.mocked(paymentHistoryService.getAllPaymentHistory).mockResolvedValue([])
+    vi.mocked(paymentHistoryService.getPaymentHistory).mockResolvedValue([])
     vi.mocked(paymentHistoryService.createPaymentHistoryEntry).mockResolvedValue({
       id: 'new-entry',
       recurringPaymentId: 'payment-1',
@@ -378,7 +378,7 @@ describe('generateDuePayments', () => {
       cost: 99.99,
     })
 
-    vi.mocked(paymentHistoryService.getAllPaymentHistory).mockResolvedValue([])
+    vi.mocked(paymentHistoryService.getPaymentHistory).mockResolvedValue([])
     vi.mocked(paymentHistoryService.createPaymentHistoryEntry).mockResolvedValue({
       id: 'new-entry',
       recurringPaymentId: 'payment-1',
@@ -404,7 +404,7 @@ describe('generateDuePayments', () => {
       paymentDay: 15,
     })
 
-    vi.mocked(paymentHistoryService.getAllPaymentHistory).mockResolvedValue([])
+    vi.mocked(paymentHistoryService.getPaymentHistory).mockResolvedValue([])
     vi.mocked(paymentHistoryService.createPaymentHistoryEntry).mockResolvedValue({
       id: 'new-entry',
       recurringPaymentId: 'payment-1',

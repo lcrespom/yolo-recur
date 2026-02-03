@@ -150,8 +150,8 @@
 
 ### Navigation
 
-- [ ] Update `__root.tsx` navLinks with new routes (Payments, Dashboard)
-- [ ] Remove old placeholder routes (page1, page2)
+- [x] Update `__root.tsx` navLinks with new routes (Payments, Dashboard)
+- [x] Remove old placeholder routes (page1, page2)
 - [ ] Update home page to show app introduction
 
 ### Error Handling

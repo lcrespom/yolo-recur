@@ -1,6 +1,5 @@
 import type { RecurringPayment } from '../types/payment'
-import { createPaymentHistoryEntry } from './payment-history-service'
-import { getAllPaymentHistory } from './payment-history-service'
+import { createPaymentHistoryEntry, getPaymentHistory } from './payment-history-service'
 
 /**
  * Calculate the next payment due date for a recurring payment
@@ -80,14 +79,9 @@ export async function generateDuePayments(
 ): Promise<number> {
   let createdCount = 0
 
-  // Fetch all existing payment history
-  const allHistory = await getAllPaymentHistory()
-
   for (const payment of payments) {
-    // Get history for this payment
-    const paymentHistory = allHistory.filter(
-      (h) => h.recurringPaymentId === payment.id,
-    )
+    // Fetch fresh history for this payment to avoid duplicates
+    const paymentHistory = await getPaymentHistory(payment.id)
 
     // Find the date of the last payment, or use a reasonable start date
     const lastPaymentDate = paymentHistory.length
@@ -112,6 +106,14 @@ export async function generateDuePayments(
           isPaid: false,
         })
         createdCount++
+        // Add the newly created entry to our local cache to prevent duplicates in this run
+        paymentHistory.push({
+          id: 'temp',
+          recurringPaymentId: payment.id,
+          date: dueDate,
+          amount: payment.cost,
+          isPaid: false,
+        })
       }
     }
   }
