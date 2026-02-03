@@ -1,15 +1,10 @@
-import type { RecurringPayment } from '../../types/payment'
+import type { RecurringPayment, PaymentHistoryEntry } from '../../types/payment'
 import { config } from '../../config'
+import { groupByLocation } from '../../services/expense-calculation-service'
 
 interface ExpensesByLocationProps {
   payments: RecurringPayment[]
-}
-
-interface LocationSummary {
-  location: string
-  monthlyTotal: number
-  yearlyTotal: number
-  count: number
+  history: PaymentHistoryEntry[]
 }
 
 function formatCurrency(amount: number): string {
@@ -20,34 +15,8 @@ function formatCurrency(amount: number): string {
   return `${config.currencySymbol} ${formatted}`
 }
 
-function groupByLocation(payments: RecurringPayment[]): LocationSummary[] {
-  const locationMap = new Map<string, LocationSummary>()
-
-  payments.forEach(payment => {
-    const location = payment.location
-    const monthlyAmount = payment.cost / payment.periodicity
-    const yearlyAmount = monthlyAmount * 12
-
-    if (locationMap.has(location)) {
-      const existing = locationMap.get(location)!
-      existing.monthlyTotal += monthlyAmount
-      existing.yearlyTotal += yearlyAmount
-      existing.count += 1
-    } else {
-      locationMap.set(location, {
-        location,
-        monthlyTotal: monthlyAmount,
-        yearlyTotal: yearlyAmount,
-        count: 1,
-      })
-    }
-  })
-
-  return Array.from(locationMap.values()).sort((a, b) => b.monthlyTotal - a.monthlyTotal)
-}
-
-export function ExpensesByLocation({ payments }: ExpensesByLocationProps) {
-  const locationSummaries = groupByLocation(payments)
+export function ExpensesByLocation({ payments, history }: ExpensesByLocationProps) {
+  const locationSummaries = groupByLocation(payments, history)
 
   if (locationSummaries.length === 0) {
     return null

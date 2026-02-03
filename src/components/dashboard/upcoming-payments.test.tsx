@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { UpcomingPayments } from './upcoming-payments'
-import type { RecurringPayment, PaymentHistoryEntry } from '../types/payment'
+import type { RecurringPayment, PaymentHistoryEntry } from '../../types/payment'
 
 const mockPayments: RecurringPayment[] = [
   {

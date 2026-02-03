@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { ExpensesByLocation } from './expenses-by-location'
-import type { RecurringPayment } from '../types/payment'
+import type { RecurringPayment } from '../../types/payment'
 
 const mockPayments: RecurringPayment[] = [
   {
@@ -47,7 +47,7 @@ const mockPayments: RecurringPayment[] = [
 
 describe('ExpensesByLocation', () => {
   it('renders expenses grouped by location', () => {
-    render(<ExpensesByLocation payments={mockPayments} />)
+    render(<ExpensesByLocation payments={mockPayments} history={[]} />)
 
     expect(screen.getByText('Expenses by Location')).toBeInTheDocument()
     expect(screen.getByText('Home')).toBeInTheDocument()
@@ -55,7 +55,7 @@ describe('ExpensesByLocation', () => {
   })
 
   it('calculates location totals correctly', () => {
-    render(<ExpensesByLocation payments={mockPayments} />)
+    render(<ExpensesByLocation payments={mockPayments} history={[]} />)
 
     // Home: Netflix (15.99) + Insurance (1200/12 = 100) = 115.99/month
     expect(screen.getByText('€ 115.99')).toBeInTheDocument()
@@ -65,7 +65,7 @@ describe('ExpensesByLocation', () => {
   })
 
   it('shows payment count per location', () => {
-    render(<ExpensesByLocation payments={mockPayments} />)
+    render(<ExpensesByLocation payments={mockPayments} history={[]} />)
 
     const rows = screen.getAllByRole('row')
     // Header + 2 location rows + footer
@@ -73,7 +73,7 @@ describe('ExpensesByLocation', () => {
   })
 
   it('sorts locations by monthly total descending', () => {
-    render(<ExpensesByLocation payments={mockPayments} />)
+    render(<ExpensesByLocation payments={mockPayments} history={[]} />)
 
     const locationCells = screen.getAllByRole('cell').filter(cell => {
       const text = cell.textContent
@@ -86,7 +86,7 @@ describe('ExpensesByLocation', () => {
   })
 
   it('shows total row with correct sums', () => {
-    render(<ExpensesByLocation payments={mockPayments} />)
+    render(<ExpensesByLocation payments={mockPayments} history={[]} />)
 
     expect(screen.getByText('Total')).toBeInTheDocument()
     // Total monthly: 115.99 + 9.99 = 125.98
@@ -94,7 +94,7 @@ describe('ExpensesByLocation', () => {
   })
 
   it('renders nothing for empty payments array', () => {
-    const { container } = render(<ExpensesByLocation payments={[]} />)
+    const { container } = render(<ExpensesByLocation payments={[]} history={[]} />)
 
     expect(container.firstChild).toBeNull()
   })

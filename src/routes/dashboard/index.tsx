@@ -61,9 +61,9 @@ function DashboardPage() {
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">Dashboard</h1>
-      <ExpensesSummary payments={payments} />
+      <ExpensesSummary payments={payments} history={history} />
       <UpcomingPayments payments={payments} history={history} />
-      <ExpensesByLocation payments={payments} />
+      <ExpensesByLocation payments={payments} history={history} />
     </div>
   )
 }

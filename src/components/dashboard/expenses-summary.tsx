@@ -1,8 +1,10 @@
-import type { RecurringPayment } from '../../types/payment'
+import type { RecurringPayment, PaymentHistoryEntry } from '../../types/payment'
 import { config } from '../../config'
+import { calculateTotals } from '../../services/expense-calculation-service'
 
 interface ExpensesSummaryProps {
   payments: RecurringPayment[]
+  history: PaymentHistoryEntry[]
 }
 
 function formatCurrency(amount: number): string {
@@ -13,21 +15,8 @@ function formatCurrency(amount: number): string {
   return `${config.currencySymbol} ${formatted}`
 }
 
-function calculateMonthlyTotal(payments: RecurringPayment[]): number {
-  return payments.reduce((total, payment) => {
-    // Convert to monthly cost based on periodicity
-    const monthlyAmount = payment.cost / payment.periodicity
-    return total + monthlyAmount
-  }, 0)
-}
-
-function calculateYearlyTotal(monthlyTotal: number): number {
-  return monthlyTotal * 12
-}
-
-export function ExpensesSummary({ payments }: ExpensesSummaryProps) {
-  const monthlyTotal = calculateMonthlyTotal(payments)
-  const yearlyTotal = calculateYearlyTotal(monthlyTotal)
+export function ExpensesSummary({ payments, history }: ExpensesSummaryProps) {
+  const { monthlyTotal, yearlyTotal } = calculateTotals(payments, history)
   const totalPayments = payments.length
 
   return (
