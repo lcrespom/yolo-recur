@@ -173,7 +173,7 @@
 - [ ] Document API service layer
 - [ ] Add comments for complex logic
 
-# Phase 7: Migrate from json-server to Supabase
+## Phase 7: Migrate from json-server to Supabase
 
 - [ ] Get the Supabase project URL and anonymous key from the environment
       (VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY, respectively). Make those keys
