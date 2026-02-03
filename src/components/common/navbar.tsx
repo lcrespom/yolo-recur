@@ -39,7 +39,7 @@ export function Navbar({ links }: NavbarProps) {
       </div>
       {/*--------------- Desktop menu ---------------*/}
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal gap-4 px-1">
           {links.map(link => (
             <li key={link.to}>
               <Link to={link.to} activeProps={{ className: 'menu-active' }}>

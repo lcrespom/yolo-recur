@@ -9,10 +9,10 @@ function HomePage() {
     <div className="space-y-12">
       {/* Hero Section */}
       <div className="hero bg-base-200 rounded-lg">
-        <div className="hero-content text-center py-12">
+        <div className="hero-content py-12 text-center">
           <div className="max-w-2xl">
-            <h1 className="text-5xl font-bold mb-4">Welcome to PayTrack</h1>
-            <p className="text-xl mb-6">
+            <h1 className="mb-4 text-5xl font-bold">Welcome to PayTrack</h1>
+            <p className="mb-6 text-xl">
               Take control of your recurring payments and subscriptions
             </p>
             <p className="text-base-content/70 mb-8">
@@ -20,11 +20,11 @@ function HomePage() {
               Never miss a payment and get accurate insights into your monthly and yearly
               spending.
             </p>
-            <div className="flex gap-4 justify-center">
-              <Link to="/dashboard" className="btn btn-primary btn-lg">
+            <div className="flex justify-center gap-4">
+              <Link to="/dashboard" className="btn btn-primary btn-md lg:btn-lg">
                 View Dashboard
               </Link>
-              <Link to="/payments" className="btn btn-outline btn-lg">
+              <Link to="/payments" className="btn btn-outline btn-md lg:btn-lg">
                 Manage Payments
               </Link>
             </div>
@@ -34,8 +34,8 @@ function HomePage() {
 
       {/* Features Section */}
       <div>
-        <h2 className="text-3xl font-bold text-center mb-8">Key Features</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <h2 className="mb-8 text-center text-3xl font-bold">Key Features</h2>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {/* Feature 1 */}
           <div className="card bg-base-200">
             <div className="card-body">
@@ -107,31 +107,31 @@ function HomePage() {
       {/* Getting Started Section */}
       <div className="card bg-base-200">
         <div className="card-body">
-          <h2 className="card-title text-2xl mb-4">Getting Started</h2>
+          <h2 className="card-title mb-4 text-2xl">Getting Started</h2>
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold text-lg">1. Add Your Recurring Payments</h3>
+              <h3 className="text-lg font-semibold">1. Add Your Recurring Payments</h3>
               <p className="text-base-content/70">
                 Navigate to the Payments page and add all your recurring subscriptions,
                 bills, and regular expenses.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-lg">2. View Your Dashboard</h3>
+              <h3 className="text-lg font-semibold">2. View Your Dashboard</h3>
               <p className="text-base-content/70">
                 Check your dashboard to see expense summaries, upcoming payments, and
                 location-based analytics.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-lg">3. Manage Payment History</h3>
+              <h3 className="text-lg font-semibold">3. Manage Payment History</h3>
               <p className="text-base-content/70">
-                Click on any payment to view its history, mark payments as paid, and adjust
-                amounts as needed.
+                Click on any payment to view its history, mark payments as paid, and
+                adjust amounts as needed.
               </p>
             </div>
           </div>
-          <div className="card-actions justify-end mt-4">
+          <div className="card-actions mt-4 justify-end">
             <Link to="/payments" className="btn btn-primary">
               Add Your First Payment
             </Link>

@@ -112,7 +112,6 @@
 
 - [x] Calculate total expenses (monthly, yearly)
 - [x] Group expenses by location
-- [ ] Group expenses by company (similar to location grouping)
 - [x] Show upcoming payments (unpaid payment history entries)
 - [ ] Display cost trends
 
@@ -173,6 +172,20 @@
 - [ ] Update README with app description and usage
 - [ ] Document API service layer
 - [ ] Add comments for complex logic
+
+# Phase 7: Migrate from json-server to Supabase
+
+- [ ] Create a script for table and RLS constraints creation. The developer will manually
+      upload those scripts to the Supabase project using the Supabase Web console.
+- [ ] Get the Supabase project URL and anonymous key from the environment, making them
+      available through the config module:
+  - VITE_SUPABASE_URL=...
+  - VITE_SUPABASE_ANON_KEY=...
+- [ ] Setup a login page, supporting login for existing users and sign in for new ones
+- [ ] Re-arrange the welcome page to send the user to the login page if required.
+- [ ] Provide a logout link in the NavBar.
+- [ ] Re-implement all backend access services with Supabase API calls.
+- [ ] Review backend access queries for efficiency/performance.
 
 ## Notes
 
