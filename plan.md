@@ -175,15 +175,22 @@
 
 # Phase 7: Migrate from json-server to Supabase
 
-- [ ] Create a script for table and RLS constraints creation. The developer will manually
-      upload those scripts to the Supabase project using the Supabase Web console.
-- [ ] Get the Supabase project URL and anonymous key from the environment, making them
-      available through the config module:
-  - VITE_SUPABASE_URL=...
-  - VITE_SUPABASE_ANON_KEY=...
-- [ ] Setup a login page, supporting login for existing users and sign in for new ones
-- [ ] Re-arrange the welcome page to send the user to the login page if required.
-- [ ] Provide a logout link in the NavBar.
+- [ ] Get the Supabase project URL and anonymous key from the environment
+      (VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY, respectively). Make those keys
+      available to the application through the config module.
+- [ ] Setup a login page, supporting Supabase login for existing users and sign in for new
+      ones.
+- [ ] If a user is logged in, link to Dashboard and Payments pages from the navbar.
+      Otherwise, provide two links in the navbar: one for login and one for sign in, both
+      pointing to the login page but with the two variants (login or sign in) through a
+      path parameter.
+- [ ] Adapt the welcome page to be aware of login status. If no user is logged in, the
+      links to dashboard and payments should be removed and a links to login/signin should
+      be provided.
+- [ ] Generate a SQL/DDL script for creating the required tables and RLS constraints. The
+      developer will manually upload those scripts to the Supabase project using the
+      Supabase Web console.
+- [ ] When the user is logged in, provide a logout link in the NavBar.
 - [ ] Re-implement all backend access services with Supabase API calls.
 - [ ] Review backend access queries for efficiency/performance.
 
