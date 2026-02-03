@@ -129,22 +129,22 @@
 - [x] Test grouping/filtering
 - [x] Run `npx tsc` to validate types
 
-## Phase 5: Auto-Payment Generation
+## Phase 5: Auto-Payment Generation ✅
 
 ### Implementation
 
-- [ ] Create utility to calculate next payment due date
-- [ ] Implement logic to check for due payments
-- [ ] Auto-generate payment history entries
-- [ ] Add initialization check (generate on app load or route visit)
-- [ ] Handle edge cases (month-end dates, leap years)
+- [x] Create utility to calculate next payment due date
+- [x] Implement logic to check for due payments
+- [x] Auto-generate payment history entries
+- [x] Add initialization check (generate on dashboard load)
+- [x] Handle edge cases (month-end dates, leap years)
 
 ### Testing
 
-- [ ] Create `src/services/payment-generator.test.ts`
-- [ ] Test periodicity calculations (monthly, yearly, custom)
-- [ ] Test edge cases
-- [ ] Run `npx tsc` to validate types
+- [x] Create `src/services/payment-generator.test.ts`
+- [x] Test periodicity calculations (monthly, yearly, custom)
+- [x] Test edge cases (month-end dates, leap years, quarterly)
+- [x] Run `npx tsc` to validate types
 
 ## Phase 6: Integration & Polish
 

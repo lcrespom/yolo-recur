@@ -47,3 +47,11 @@ be replaced with a more realistic implementation such as Supabase or Postgres.
 
 For each functionality, tests should be created and run for validation. Also, run
 `npx tsc` to validate that there are no TypeScript errors.
+
+---
+
+Next:
+
+- Test in mobile => responsive
+- Supabase
+- Overal code review / refactor

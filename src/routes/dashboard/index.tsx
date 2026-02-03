@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import type { RecurringPayment, PaymentHistoryEntry } from '../../types/payment'
 import { getRecurringPayments } from '../../services/payment-service'
 import { getAllPaymentHistory } from '../../services/payment-history-service'
+import { generateDuePayments } from '../../services/payment-generator'
 import { ExpensesSummary } from '../../components/dashboard/expenses-summary'
 import { ExpensesByLocation } from '../../components/dashboard/expenses-by-location'
 import { UpcomingPayments } from '../../components/dashboard/upcoming-payments'
@@ -22,10 +23,12 @@ function DashboardPage() {
     try {
       setIsLoading(true)
       setError(null)
-      const [paymentsData, historyData] = await Promise.all([
-        getRecurringPayments(),
-        getAllPaymentHistory(),
-      ])
+      // Load payments first
+      const paymentsData = await getRecurringPayments()
+      // Generate any missing payment history entries
+      await generateDuePayments(paymentsData)
+      // Load payment history after generation
+      const historyData = await getAllPaymentHistory()
       setPayments(paymentsData)
       setHistory(historyData)
     } catch (err) {
@@ -58,11 +61,8 @@ function DashboardPage() {
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">Dashboard</h1>
-
       <ExpensesSummary payments={payments} />
-
       <UpcomingPayments payments={payments} history={history} />
-
       <ExpensesByLocation payments={payments} />
     </div>
   )
