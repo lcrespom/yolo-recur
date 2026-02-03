@@ -4,6 +4,22 @@ export const Route = createFileRoute('/')({
   component: HomePage,
 })
 
+type FeatureCardProps = {
+  title: string
+  children: React.ReactNode
+}
+
+function FeatureCard({ title, children }: FeatureCardProps) {
+  return (
+    <div className="card bg-base-200">
+      <div className="card-body">
+        <h3 className="card-title">{title}</h3>
+        <p className="text-base-content/70">{children}</p>
+      </div>
+    </div>
+  )
+}
+
 function HomePage() {
   return (
     <div className="space-y-12">
@@ -36,71 +52,30 @@ function HomePage() {
       <div>
         <h2 className="mb-8 text-center text-3xl font-bold">Key Features</h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {/* Feature 1 */}
-          <div className="card bg-base-200">
-            <div className="card-body">
-              <h3 className="card-title">Auto-Generated Payment History</h3>
-              <p className="text-base-content/70">
-                Automatically generates payment entries based on your recurring schedules.
-                Monthly, quarterly, or yearly - we track them all.
-              </p>
-            </div>
-          </div>
-
-          {/* Feature 2 */}
-          <div className="card bg-base-200">
-            <div className="card-body">
-              <h3 className="card-title">Accurate Expense Tracking</h3>
-              <p className="text-base-content/70">
-                Uses actual payment history when available, falling back to estimates. Get
-                real insights into your spending patterns over time.
-              </p>
-            </div>
-          </div>
-
-          {/* Feature 3 */}
-          <div className="card bg-base-200">
-            <div className="card-body">
-              <h3 className="card-title">Location-Based Analytics</h3>
-              <p className="text-base-content/70">
-                Group your expenses by location to understand where your money goes. Track
-                home, office, and personal expenses separately.
-              </p>
-            </div>
-          </div>
-
-          {/* Feature 4 */}
-          <div className="card bg-base-200">
-            <div className="card-body">
-              <h3 className="card-title">Upcoming Payments</h3>
-              <p className="text-base-content/70">
-                Never miss a payment again. See all upcoming unpaid expenses in one place,
-                sorted by due date.
-              </p>
-            </div>
-          </div>
-
-          {/* Feature 5 */}
-          <div className="card bg-base-200">
-            <div className="card-body">
-              <h3 className="card-title">Payment History Management</h3>
-              <p className="text-base-content/70">
-                Mark payments as paid, adjust amounts, and maintain a complete history of
-                all your recurring expenses.
-              </p>
-            </div>
-          </div>
-
-          {/* Feature 6 */}
-          <div className="card bg-base-200">
-            <div className="card-body">
-              <h3 className="card-title">Monthly & Yearly Totals</h3>
-              <p className="text-base-content/70">
-                Instantly see your total recurring expenses broken down by month and year.
-                Plan your budget with confidence.
-              </p>
-            </div>
-          </div>
+          <FeatureCard title="Auto-Generated Payment History">
+            Automatically generates payment entries based on your recurring schedules.
+            Monthly, quarterly, or yearly - we track them all.
+          </FeatureCard>
+          <FeatureCard title="Accurate Expense Tracking">
+            Uses actual payment history when available, falling back to estimates. Get
+            real insights into your spending patterns over time.
+          </FeatureCard>
+          <FeatureCard title="Location-Based Analytics">
+            Group your expenses by location to understand where your money goes. Track
+            home, office, and personal expenses separately.
+          </FeatureCard>
+          <FeatureCard title="Upcoming Payments">
+            Never miss a payment again. See all upcoming unpaid expenses in one place,
+            sorted by due date.
+          </FeatureCard>
+          <FeatureCard title="Payment History Management">
+            Mark payments as paid, adjust amounts, and maintain a complete history of all
+            your recurring expenses.
+          </FeatureCard>
+          <FeatureCard title="Monthly & Yearly Totals">
+            Instantly see your total recurring expenses broken down by month and year.
+            Plan your budget with confidence.
+          </FeatureCard>
         </div>
       </div>
 
