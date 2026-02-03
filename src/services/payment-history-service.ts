@@ -11,7 +11,7 @@ export async function getPaymentHistory(
   recurringPaymentId: string,
 ): Promise<PaymentHistoryEntry[]> {
   const response = await fetch(
-    `${config.apiBaseUrl}/paymentHistory?recurringPaymentId=${recurringPaymentId}&_sort=date&_order=desc`,
+    `${config.apiBaseUrl}/paymentHistory?recurringPaymentId=${recurringPaymentId}&_sort=-date`,
   )
   if (!response.ok) {
     throw new Error('Failed to fetch payment history')
@@ -23,7 +23,7 @@ export async function getPaymentHistory(
  * Fetch all payment history entries
  */
 export async function getAllPaymentHistory(): Promise<PaymentHistoryEntry[]> {
-  const response = await fetch(`${config.apiBaseUrl}/paymentHistory?_sort=date&_order=desc`)
+  const response = await fetch(`${config.apiBaseUrl}/paymentHistory?_sort=-date`)
   if (!response.ok) {
     throw new Error('Failed to fetch payment history')
   }
