@@ -6,7 +6,7 @@ import type { RecurringPayment } from '../../types/payment'
 import { getRecurringPayments } from '../../services/payment-service'
 import { calculateNextDueDate } from '../../services/payment-generator'
 import { SearchInput } from '../common/search-input'
-import { config } from '../../config'
+import { formatCurrency, formatDate } from '../../utils/format'
 
 type SortField = 'name' | 'cost' | 'nextDue' | 'location'
 type SortDirection = 'asc' | 'desc'
@@ -16,21 +16,6 @@ interface PaymentWithNextDue extends RecurringPayment {
 }
 
 //#region -------------------- Helper Functions --------------------
-function formatCurrency(amount: number): string {
-  const formatted = new Intl.NumberFormat(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(amount)
-  return `${config.currencySymbol} ${formatted}`
-}
-
-function formatDate(dateString: string): string {
-  return new Date(dateString).toLocaleDateString(undefined, {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  })
-}
 
 function getPeriodicityLabel(months: number): string {
   if (months === 1) return 'Monthly'

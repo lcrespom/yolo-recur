@@ -1,18 +1,10 @@
 import type { RecurringPayment, PaymentHistoryEntry } from '../../types/payment'
-import { config } from '../../config'
 import { calculateTotals } from '../../services/expense-calculation-service'
+import { formatCurrency } from '../../utils/format'
 
 interface ExpensesSummaryProps {
   payments: RecurringPayment[]
   history: PaymentHistoryEntry[]
-}
-
-function formatCurrency(amount: number): string {
-  const formatted = new Intl.NumberFormat(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(amount)
-  return `${config.currencySymbol} ${formatted}`
 }
 
 export function ExpensesSummary({ payments, history }: ExpensesSummaryProps) {

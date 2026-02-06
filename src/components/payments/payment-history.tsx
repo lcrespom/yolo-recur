@@ -6,7 +6,7 @@ import {
   updatePaymentHistoryEntry,
   deletePaymentHistoryEntry,
 } from '../../services/payment-history-service'
-import { config } from '../../config'
+import { formatCurrency, formatDate } from '../../utils/format'
 
 interface PaymentHistoryProps {
   paymentId: string
@@ -18,22 +18,6 @@ interface EditingEntry {
   id: string
   amount: number
   isPaid: boolean
-}
-
-function formatCurrency(amount: number): string {
-  const formatted = new Intl.NumberFormat(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(amount)
-  return `${config.currencySymbol} ${formatted}`
-}
-
-function formatDate(dateString: string): string {
-  return new Date(dateString).toLocaleDateString(undefined, {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  })
 }
 
 export function PaymentHistory({

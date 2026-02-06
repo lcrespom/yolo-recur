@@ -1,5 +1,5 @@
 import type { RecurringPayment, PaymentHistoryEntry } from '../../types/payment'
-import { config } from '../../config'
+import { formatCurrency, formatDate } from '../../utils/format'
 
 interface UpcomingPaymentsProps {
   payments: RecurringPayment[]
@@ -12,22 +12,6 @@ interface UpcomingPayment {
   amount: number
   paymentName: string
   location: string
-}
-
-function formatCurrency(amount: number): string {
-  const formatted = new Intl.NumberFormat(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(amount)
-  return `${config.currencySymbol} ${formatted}`
-}
-
-function formatDate(dateString: string): string {
-  return new Date(dateString).toLocaleDateString(undefined, {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  })
 }
 
 function getUpcomingPayments(

@@ -42,26 +42,3 @@ export interface PaymentHistoryEntry {
  * Form data for creating or updating a payment history entry (without id)
  */
 export type PaymentHistoryEntryInput = Omit<PaymentHistoryEntry, 'id'>
-
-/**
- * Combined view of a recurring payment with its history
- */
-export interface RecurringPaymentWithHistory {
-  payment: RecurringPayment
-  history: PaymentHistoryEntry[]
-}
-
-/**
- * Summary statistics for the dashboard
- */
-export interface PaymentSummary {
-  totalMonthly: number
-  totalYearly: number
-  byLocation: Record<string, number>
-  byCompany: Record<string, number>
-  upcomingPayments: Array<{
-    payment: RecurringPayment
-    nextDueDate: string
-    amount: number
-  }>
-}
