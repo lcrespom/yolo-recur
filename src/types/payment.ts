@@ -1,7 +1,7 @@
 /**
  * Represents a recurring payment configuration
  */
-export interface RecurringPayment {
+export type RecurringPayment = {
   id: string
   name: string
   location: string
@@ -27,7 +27,7 @@ export type RecurringPaymentInput = Omit<RecurringPayment, 'id'>
 /**
  * Represents a single payment history entry
  */
-export interface PaymentHistoryEntry {
+export type PaymentHistoryEntry = {
   id: string
   recurringPaymentId: string
   /** Payment date in ISO format (YYYY-MM-DD) */

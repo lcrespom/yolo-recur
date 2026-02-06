@@ -57,7 +57,7 @@ export function calculateTotals(
   return { monthlyTotal, yearlyTotal }
 }
 
-export interface LocationSummary {
+export type LocationSummary = {
   location: string
   monthlyTotal: number
   yearlyTotal: number

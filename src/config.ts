@@ -3,7 +3,7 @@
  * Reads from environment variables with fallback defaults
  */
 
-interface Config {
+type Config = {
   apiBaseUrl: string
   currencySymbol: string
 }

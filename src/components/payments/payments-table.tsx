@@ -11,9 +11,9 @@ import { formatCurrency, formatDate } from '../../utils/format'
 type SortField = 'name' | 'cost' | 'nextDue' | 'location'
 type SortDirection = 'asc' | 'desc'
 
-interface PaymentWithNextDue extends RecurringPayment {
+type PaymentWithNextDue = {
   nextDueDate: string
-}
+} & RecurringPayment
 
 //#region -------------------- Helper Functions --------------------
 
