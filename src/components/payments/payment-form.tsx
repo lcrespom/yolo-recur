@@ -12,7 +12,7 @@ import {
 import { paymentFormSchema, type PaymentFormData } from '../../validation/payment-schema'
 import { FormInput } from '../common/form-input'
 
-interface PaymentFormProps {
+type PaymentFormProps = {
   payment: RecurringPayment | null
   onSaveSuccess: () => void
   onDeleteSuccess: () => void

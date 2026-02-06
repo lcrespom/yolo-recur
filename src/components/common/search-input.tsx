@@ -1,6 +1,6 @@
 import { Search } from 'lucide-react'
 
-export interface SearchInputProps {
+export type SearchInputProps = {
   value: string
   onChange: (value: string) => void
   placeholder?: string

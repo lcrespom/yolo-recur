@@ -2,7 +2,7 @@ import type { RecurringPayment, PaymentHistoryEntry } from '../../types/payment'
 import { calculateTotals } from '../../services/expense-calculation-service'
 import { formatCurrency } from '../../utils/format'
 
-interface ExpensesSummaryProps {
+type ExpensesSummaryProps = {
   payments: RecurringPayment[]
   history: PaymentHistoryEntry[]
 }

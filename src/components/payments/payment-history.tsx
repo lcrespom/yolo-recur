@@ -8,13 +8,13 @@ import {
 } from '../../services/payment-history-service'
 import { formatCurrency, formatDate } from '../../utils/format'
 
-interface PaymentHistoryProps {
+type PaymentHistoryProps = {
   paymentId: string
   history: PaymentHistoryEntry[]
   onHistoryChange: () => void
 }
 
-interface EditingEntry {
+type EditingEntry = {
   id: string
   amount: number
   isPaid: boolean

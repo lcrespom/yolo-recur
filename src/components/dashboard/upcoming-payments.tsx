@@ -1,12 +1,12 @@
 import type { RecurringPayment, PaymentHistoryEntry } from '../../types/payment'
 import { formatCurrency, formatDate } from '../../utils/format'
 
-interface UpcomingPaymentsProps {
+type UpcomingPaymentsProps = {
   payments: RecurringPayment[]
   history: PaymentHistoryEntry[]
 }
 
-interface UpcomingPayment {
+type UpcomingPayment = {
   id: string
   date: string
   amount: number

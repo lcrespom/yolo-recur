@@ -2,12 +2,12 @@ import { Link } from '@tanstack/react-router'
 import { Menu } from 'lucide-react'
 import { ThemeToggle } from './theme-toggle'
 
-export interface NavLink {
+export type NavLink = {
   to: string
   label: string
 }
 
-interface NavbarProps {
+type NavbarProps = {
   links: NavLink[]
 }
 

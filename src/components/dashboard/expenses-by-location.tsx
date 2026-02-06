@@ -2,7 +2,7 @@ import type { RecurringPayment, PaymentHistoryEntry } from '../../types/payment'
 import { groupByLocation } from '../../services/expense-calculation-service'
 import { formatCurrency } from '../../utils/format'
 
-interface ExpensesByLocationProps {
+type ExpensesByLocationProps = {
   payments: RecurringPayment[]
   history: PaymentHistoryEntry[]
 }
