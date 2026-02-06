@@ -4,6 +4,7 @@ description:
   Review code for quality, conventions, performance, accessibility, and security against
   project standards
 argument-hint: [file-or-directory]
+model: opus
 allowed-tools:
   Read, Glob, Grep, Bash(npx tsc:*), Bash(npm run lint), Bash(npm run format:check)
 ---

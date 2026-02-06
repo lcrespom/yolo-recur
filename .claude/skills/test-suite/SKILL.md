@@ -3,6 +3,7 @@ name: test-suite
 description: Run tests for a specific file or area, or create missing tests following project patterns
 argument-hint: [file-or-area]
 disable-model-invocation: true
+model: haiku
 allowed-tools: Read, Glob, Grep, Write, Edit, Bash(npx vitest:*), Bash(npm test:*), Bash(npm test)
 ---
 

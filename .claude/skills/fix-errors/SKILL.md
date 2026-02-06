@@ -2,6 +2,7 @@
 name: fix-errors
 description: Find and fix TypeScript, ESLint, and test errors across the project
 disable-model-invocation: true
+model: haiku
 allowed-tools: Read, Glob, Grep, Edit, Write, Bash(npx tsc:*), Bash(npm run lint), Bash(npm test), Bash(npx vitest:*), mcp__vscode__code_checker
 ---
 

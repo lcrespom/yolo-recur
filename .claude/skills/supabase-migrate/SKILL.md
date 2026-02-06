@@ -2,6 +2,7 @@
 name: supabase-migrate
 description: Migrate a json-server service module to use Supabase client API while preserving the same public interface
 argument-hint: [service-file-name]
+model: opus
 allowed-tools: Read, Glob, Grep, Write, Edit, Bash(npx tsc:*), Bash(npx vitest:*), mcp__context7__resolve-library-id, mcp__context7__query-docs
 ---
 

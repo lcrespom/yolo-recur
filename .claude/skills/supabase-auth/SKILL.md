@@ -2,6 +2,7 @@
 name: supabase-auth
 description: Implement Supabase authentication — login/signup pages, auth state, protected routes, and auth-aware navbar
 argument-hint: [feature]
+model: opus
 allowed-tools: Read, Glob, Grep, Write, Edit, Bash(npx tsc:*), Bash(npx vitest:*), mcp__context7__resolve-library-id, mcp__context7__query-docs
 ---
 

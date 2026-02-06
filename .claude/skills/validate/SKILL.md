@@ -2,6 +2,7 @@
 name: validate
 description: Run the full validation pipeline — TypeScript type-check, ESLint, Prettier check, and test suite
 disable-model-invocation: true
+model: haiku
 allowed-tools: Bash(npx tsc:*), Bash(npm run lint), Bash(npm run format:check), Bash(npm test), Bash(npm run build:*)
 ---
 
