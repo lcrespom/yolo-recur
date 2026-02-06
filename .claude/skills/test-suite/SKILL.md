@@ -1,16 +1,21 @@
 ---
 name: test-suite
-description: Run tests for a specific file or area, or create missing tests following project patterns
+description:
+  Run tests for a specific file or area, or create missing tests following project
+  patterns
 argument-hint: [file-or-area]
 disable-model-invocation: true
 model: haiku
-allowed-tools: Read, Glob, Grep, Write, Edit, Bash(npx vitest:*), Bash(npm test:*), Bash(npm test)
+allowed-tools:
+  Read, Glob, Grep, Write, Edit, Bash(npx vitest:*), Bash(npm test:*), Bash(npm test)
 ---
 
 # Test Suite Management
 
 Run or create tests. The argument can be:
-- A specific file path: `src/components/payments/payment-history` (runs/creates tests for that file)
+
+- A specific file path: `src/components/payments/payment-history` (runs/creates tests for
+  that file)
 - An area: `services`, `components`, `dashboard` (runs all tests in that area)
 - `coverage` — run with coverage analysis
 - `all` or omitted — run the full test suite
@@ -18,28 +23,33 @@ Run or create tests. The argument can be:
 ## Running Tests
 
 ### Single file
+
 ```bash
 npx vitest run src/components/$ARGUMENTS.test.tsx
 ```
 
 ### Area
+
 ```bash
 npx vitest run src/$ARGUMENTS/
 ```
 
 ### Full suite
+
 ```bash
 npm test
 ```
 
 ### Coverage analysis
+
 ```bash
 npx vitest run --coverage
 ```
 
 ## Creating Missing Tests
 
-If a test file does not exist for the specified file, create one following project patterns.
+If a test file does not exist for the specified file, create one following project
+patterns.
 
 ### Steps to Create Tests
 
@@ -90,7 +100,13 @@ describe('ComponentName', () => {
 For components using TanStack Router links/navigation, wrap with router context:
 
 ```tsx
-import { createMemoryHistory, createRootRoute, createRoute, createRouter, RouterProvider } from '@tanstack/react-router'
+import {
+  createMemoryHistory,
+  createRootRoute,
+  createRoute,
+  createRouter,
+  RouterProvider,
+} from '@tanstack/react-router'
 
 function renderWithRouter(component: React.ReactNode) {
   const rootRoute = createRootRoute({ component: () => component })
@@ -127,8 +143,10 @@ describe('functionName', () => {
 
 ### Key Testing Conventions
 
-- **Globals**: `describe`, `it`, `expect`, `vi`, `beforeEach` available globally (import from 'vitest' for consistency)
-- **DOM matchers**: `toBeInTheDocument()`, `toHaveTextContent()`, etc. from `@testing-library/jest-dom`
+- **Globals**: `describe`, `it`, `expect`, `vi`, `beforeEach` available globally (import
+  from 'vitest' for consistency)
+- **DOM matchers**: `toBeInTheDocument()`, `toHaveTextContent()`, etc. from
+  `@testing-library/jest-dom`
 - **User events**: Use `userEvent.setup()` over `fireEvent` for realistic interactions
 - **Async**: Use `await` with `userEvent` and `findBy*` queries
 - **Mocks**: Always `vi.clearAllMocks()` in `beforeEach`

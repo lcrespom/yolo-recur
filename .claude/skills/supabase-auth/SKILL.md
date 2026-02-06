@@ -1,14 +1,19 @@
 ---
 name: supabase-auth
-description: Implement Supabase authentication — login/signup pages, auth state, protected routes, and auth-aware navbar
+description:
+  Implement Supabase authentication — login/signup pages, auth state, protected routes,
+  and auth-aware navbar
 argument-hint: [feature]
 model: opus
-allowed-tools: Read, Glob, Grep, Write, Edit, Bash(npx tsc:*), Bash(npx vitest:*), mcp__context7__resolve-library-id, mcp__context7__query-docs
+allowed-tools:
+  Read, Glob, Grep, Write, Edit, Bash(npx tsc:*), Bash(npx vitest:*),
+  mcp__context7__resolve-library-id, mcp__context7__query-docs
 ---
 
 # Supabase Authentication
 
-Implement Supabase authentication features for this project. The argument specifies which feature to implement:
+Implement Supabase authentication features for this project. The argument specifies which
+feature to implement:
 
 - `login-page` — Create the login/signup page
 - `auth-context` — Create auth state management
@@ -21,6 +26,7 @@ Implement Supabase authentication features for this project. The argument specif
 ## Prerequisites
 
 Before implementing, verify:
+
 1. **Supabase client exists** at `src/lib/supabase.ts`
 2. **Config has Supabase vars** in `src/config.ts` (`supabaseUrl`, `supabaseAnonKey`)
 3. **@supabase/supabase-js is installed** — check `package.json`
@@ -47,6 +53,7 @@ interface AuthContextType {
 ```
 
 Key requirements:
+
 - Listen to `supabase.auth.onAuthStateChange()` in useEffect
 - Clean up the subscription on unmount
 - Provide loading state while checking initial session
@@ -55,6 +62,7 @@ Key requirements:
 ## Feature: login-page
 
 Create route at `src/routes/login.tsx` (path: `/login`):
+
 - Single page handling both login and sign-up with a tab or toggle
 - Use a path search param (`?mode=login` or `?mode=signup`) to control which form is shown
 - Form fields: email, password (and confirm password for sign-up)
@@ -67,6 +75,7 @@ Create route at `src/routes/login.tsx` (path: `/login`):
 ## Feature: protected-routes
 
 Dashboard and Payments pages require authentication:
+
 - Check `user` from auth context
 - If not logged in, redirect to `/login`
 - Show a loading spinner while auth state is resolving
@@ -75,14 +84,17 @@ Dashboard and Payments pages require authentication:
 ## Feature: navbar
 
 Update `src/routes/__root.tsx` and `src/components/common/navbar.tsx`:
+
 - **Logged in**: Show Dashboard, Payments links + user email + Logout button
-- **Not logged in**: Show Login, Sign Up links (both point to `/login` with different `?mode` param)
+- **Not logged in**: Show Login, Sign Up links (both point to `/login` with different
+  `?mode` param)
 - Navbar should consume auth context to determine state
 - Logout button calls `signOut()` from auth context
 
 ## Feature: welcome-page
 
 Update `src/routes/index.tsx`:
+
 - **Logged in**: Show links to Dashboard and Payments (existing behavior)
 - **Not logged in**: Replace Dashboard/Payments links with Login/Sign Up CTAs
 - Adjust hero section messaging based on auth state
@@ -103,7 +115,8 @@ Update `src/routes/index.tsx`:
 
 ## Steps (for `all`)
 
-1. Read existing files: `src/routes/__root.tsx`, `src/components/common/navbar.tsx`, `src/routes/index.tsx`, `src/main.tsx`, `src/config.ts`
+1. Read existing files: `src/routes/__root.tsx`, `src/components/common/navbar.tsx`,
+   `src/routes/index.tsx`, `src/main.tsx`, `src/config.ts`
 2. Create/verify Supabase client at `src/lib/supabase.ts`
 3. Create auth context at `src/contexts/auth-context.tsx`
 4. Wrap app with `<AuthProvider>` in `src/main.tsx`

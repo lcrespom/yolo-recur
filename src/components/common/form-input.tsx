@@ -6,7 +6,13 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   registration: UseFormRegisterReturn
 }
 
-export function FormInput({ label, error, registration, className = '', ...props }: FormInputProps) {
+export function FormInput({
+  label,
+  error,
+  registration,
+  className = '',
+  ...props
+}: FormInputProps) {
   return (
     <label className="form-control">
       <span className="label-text mb-2 block">{label}</span>
@@ -15,7 +21,7 @@ export function FormInput({ label, error, registration, className = '', ...props
         {...registration}
         {...props}
       />
-      {error && <div className="mt-1 text-sm text-error">{error.message}</div>}
+      {error && <div className="text-error mt-1 text-sm">{error.message}</div>}
     </label>
   )
 }

@@ -1,6 +1,7 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this
+repository.
 
 ## Commands
 
@@ -17,19 +18,24 @@ npx vitest run src/components/Navbar.test.tsx  # Run a single test file
 
 ## Architecture
 
-This is a React 19 + TypeScript template using Vite, TanStack Router, Tailwind CSS 4, and DaisyUI 5.
+This is a React 19 + TypeScript template using Vite, TanStack Router, Tailwind CSS 4, and
+DaisyUI 5.
 
 ### Routing (TanStack Router — file-based)
 
 - Routes live in `src/routes/`. Adding a file there automatically creates a route.
-- `src/routes/__root.tsx` is the root layout (renders `<Navbar>` and `<Outlet>`). Navigation links are defined here and passed to Navbar as props.
+- `src/routes/__root.tsx` is the root layout (renders `<Navbar>` and `<Outlet>`).
+  Navigation links are defined here and passed to Navbar as props.
 - `src/routeTree.gen.ts` is **auto-generated** — never edit it manually.
 
 ### Styling & Theming
 
-- CSS entry point: `src/index.css` — imports Tailwind and configures DaisyUI with `light` (default) and `dark` (prefers-dark) themes.
-- Theme is controlled via the `data-theme` attribute on `<html>`, managed by `src/components/ThemeToggle.tsx` which syncs with `prefers-color-scheme`.
-- Use DaisyUI component classes (`btn`, `navbar`, `card`, etc.) and Tailwind utilities. Prettier auto-sorts Tailwind classes.
+- CSS entry point: `src/index.css` — imports Tailwind and configures DaisyUI with `light`
+  (default) and `dark` (prefers-dark) themes.
+- Theme is controlled via the `data-theme` attribute on `<html>`, managed by
+  `src/components/ThemeToggle.tsx` which syncs with `prefers-color-scheme`.
+- Use DaisyUI component classes (`btn`, `navbar`, `card`, etc.) and Tailwind utilities.
+  Prettier auto-sorts Tailwind classes.
 
 ### Components
 
@@ -38,11 +44,15 @@ This is a React 19 + TypeScript template using Vite, TanStack Router, Tailwind C
 
 ### Testing
 
-- Vitest with jsdom environment. Globals enabled (`describe`, `it`, `expect` available without imports).
-- `src/test/setup.ts` provides `@testing-library/jest-dom` matchers and a `window.matchMedia` mock.
-- Components using TanStack Router need to be wrapped with a router context — see `renderWithRouter` helper in existing tests.
+- Vitest with jsdom environment. Globals enabled (`describe`, `it`, `expect` available
+  without imports).
+- `src/test/setup.ts` provides `@testing-library/jest-dom` matchers and a
+  `window.matchMedia` mock.
+- Components using TanStack Router need to be wrapped with a router context — see
+  `renderWithRouter` helper in existing tests.
 
 ## Code Style
 
-- Prettier: no semicolons, single quotes, no parens on single arrow params, trailing commas (es5), 90 char print width.
+- Prettier: no semicolons, single quotes, no parens on single arrow params, trailing
+  commas (es5), 90 char print width.
 - TypeScript strict mode with `noUnusedLocals` and `noUnusedParameters` enabled.

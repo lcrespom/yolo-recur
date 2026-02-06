@@ -1,17 +1,14 @@
-import type {
-  PaymentHistoryEntry,
-  PaymentHistoryEntryInput,
-} from '../types/payment'
+import type { PaymentHistoryEntry, PaymentHistoryEntryInput } from '../types/payment'
 import { config } from '../config'
 
 /**
  * Fetch payment history for a specific recurring payment
  */
 export async function getPaymentHistory(
-  recurringPaymentId: string,
+  recurringPaymentId: string
 ): Promise<PaymentHistoryEntry[]> {
   const response = await fetch(
-    `${config.apiBaseUrl}/paymentHistory?recurringPaymentId=${recurringPaymentId}&_sort=-date`,
+    `${config.apiBaseUrl}/paymentHistory?recurringPaymentId=${recurringPaymentId}&_sort=-date`
   )
   if (!response.ok) {
     throw new Error('Failed to fetch payment history')
@@ -34,7 +31,7 @@ export async function getAllPaymentHistory(): Promise<PaymentHistoryEntry[]> {
  * Create a new payment history entry
  */
 export async function createPaymentHistoryEntry(
-  data: PaymentHistoryEntryInput,
+  data: PaymentHistoryEntryInput
 ): Promise<PaymentHistoryEntry> {
   const response = await fetch(`${config.apiBaseUrl}/paymentHistory`, {
     method: 'POST',
@@ -54,7 +51,7 @@ export async function createPaymentHistoryEntry(
  */
 export async function updatePaymentHistoryEntry(
   id: string,
-  data: Partial<PaymentHistoryEntryInput>,
+  data: Partial<PaymentHistoryEntryInput>
 ): Promise<PaymentHistoryEntry> {
   const response = await fetch(`${config.apiBaseUrl}/paymentHistory/${id}`, {
     method: 'PATCH',

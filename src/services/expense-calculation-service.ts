@@ -79,9 +79,8 @@ export function groupByLocation(
 
     // Try to use actual history first
     const actualYearly = calculateYearlyFromHistory(payment, history)
-    const yearlyAmount = actualYearly !== null
-      ? actualYearly
-      : (payment.cost / payment.periodicity) * 12
+    const yearlyAmount =
+      actualYearly !== null ? actualYearly : (payment.cost / payment.periodicity) * 12
     const monthlyAmount = yearlyAmount / 12
 
     if (locationMap.has(location)) {

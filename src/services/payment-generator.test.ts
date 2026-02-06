@@ -140,12 +140,7 @@ describe('calculateDueDatesInRange', () => {
       new Date('2024-04-30')
     )
 
-    expect(result).toEqual([
-      '2024-01-15',
-      '2024-02-15',
-      '2024-03-15',
-      '2024-04-15',
-    ])
+    expect(result).toEqual(['2024-01-15', '2024-02-15', '2024-03-15', '2024-04-15'])
   })
 
   it('calculates due dates for yearly payment', () => {
@@ -177,12 +172,7 @@ describe('calculateDueDatesInRange', () => {
       new Date('2024-12-31')
     )
 
-    expect(result).toEqual([
-      '2024-01-01',
-      '2024-04-01',
-      '2024-07-01',
-      '2024-10-01',
-    ])
+    expect(result).toEqual(['2024-01-01', '2024-04-01', '2024-07-01', '2024-10-01'])
   })
 
   it('returns empty array when range has no due dates', () => {
@@ -283,7 +273,9 @@ describe('generateDuePayments', () => {
     const result = await generateDuePayments([payment], new Date('2024-02-20'))
 
     // Should not create any new entries since they already exist
-    expect(vi.mocked(paymentHistoryService.createPaymentHistoryEntry)).not.toHaveBeenCalled()
+    expect(
+      vi.mocked(paymentHistoryService.createPaymentHistoryEntry)
+    ).not.toHaveBeenCalled()
     expect(result).toBe(0)
   })
 
@@ -324,8 +316,12 @@ describe('generateDuePayments', () => {
     const result = await generateDuePayments([payment], new Date('2024-03-20'))
 
     // Should create only the missing Mar entry (from last payment forward)
-    expect(vi.mocked(paymentHistoryService.createPaymentHistoryEntry)).toHaveBeenCalledTimes(1)
-    expect(vi.mocked(paymentHistoryService.createPaymentHistoryEntry)).toHaveBeenCalledWith({
+    expect(
+      vi.mocked(paymentHistoryService.createPaymentHistoryEntry)
+    ).toHaveBeenCalledTimes(1)
+    expect(
+      vi.mocked(paymentHistoryService.createPaymentHistoryEntry)
+    ).toHaveBeenCalledWith({
       recurringPaymentId: 'payment-1',
       date: '2024-03-15',
       amount: 100,
@@ -359,10 +355,7 @@ describe('generateDuePayments', () => {
       isPaid: false,
     })
 
-    const result = await generateDuePayments(
-      [payment1, payment2],
-      new Date('2024-03-20')
-    )
+    const result = await generateDuePayments([payment1, payment2], new Date('2024-03-20'))
 
     // Should create entries for both payments
     expect(result).toBeGreaterThan(0)

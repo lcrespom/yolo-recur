@@ -7,13 +7,16 @@ allowed-tools: Read, Glob, Grep, Write, Bash(npx tsc:*), Bash(npx vitest:*)
 
 # Create Service Module
 
-Create a new service at `src/services/$ARGUMENTS.ts` with a co-located test at `src/services/$ARGUMENTS.test.ts`.
+Create a new service at `src/services/$ARGUMENTS.ts` with a co-located test at
+`src/services/$ARGUMENTS.test.ts`.
 
 ## Service File Requirements
 
-1. **Read existing services first**: Read `src/services/payment-service.ts` and `src/services/payment-history-service.ts` to understand the project's API patterns
+1. **Read existing services first**: Read `src/services/payment-service.ts` and
+   `src/services/payment-history-service.ts` to understand the project's API patterns
 2. **Import config**: Use `config.apiBaseUrl` from `src/config.ts` for the base URL
-3. **Type imports**: Import types from `src/types/` — use `import type` for type-only imports
+3. **Type imports**: Import types from `src/types/` — use `import type` for type-only
+   imports
 4. **Function pattern**:
 
 ```tsx
@@ -28,7 +31,9 @@ export async function getItems(): Promise<Item[]> {
 
 5. **CRUD operations**: Implement `get*`, `create*`, `update*`, `delete*` as needed
 6. **Use PATCH** for updates (not PUT) — this matches json-server and Supabase patterns
-7. **Pure logic services**: For calculation/utility services, follow `src/services/expense-calculation-service.ts` patterns — no API calls, just pure functions
+7. **Pure logic services**: For calculation/utility services, follow
+   `src/services/expense-calculation-service.ts` patterns — no API calls, just pure
+   functions
 8. **Error handling**: Throw descriptive Error messages on non-ok responses
 9. **Code style**: No semicolons, single quotes, trailing commas, 90-char width
 

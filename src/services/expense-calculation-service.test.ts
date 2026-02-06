@@ -6,7 +6,9 @@ import {
 } from './expense-calculation-service'
 import type { RecurringPayment, PaymentHistoryEntry } from '../types/payment'
 
-const createMockPayment = (overrides: Partial<RecurringPayment> = {}): RecurringPayment => ({
+const createMockPayment = (
+  overrides: Partial<RecurringPayment> = {}
+): RecurringPayment => ({
   id: '1',
   name: 'Test Payment',
   location: 'Test',

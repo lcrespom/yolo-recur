@@ -1,13 +1,18 @@
 ---
 name: supabase-sql
-description: Generate SQL/DDL scripts for Supabase tables with RLS policies based on project TypeScript types
+description:
+  Generate SQL/DDL scripts for Supabase tables with RLS policies based on project
+  TypeScript types
 argument-hint: [output-file]
-allowed-tools: Read, Glob, Grep, Write, mcp__context7__resolve-library-id, mcp__context7__query-docs
+allowed-tools:
+  Read, Glob, Grep, Write, mcp__context7__resolve-library-id, mcp__context7__query-docs
 ---
 
 # Generate Supabase SQL/DDL
 
-Generate a SQL script for creating Supabase tables, indexes, and Row-Level Security (RLS) policies. The output file path defaults to `supabase/migrations/001_initial_schema.sql` unless specified via argument.
+Generate a SQL script for creating Supabase tables, indexes, and Row-Level Security (RLS)
+policies. The output file path defaults to `supabase/migrations/001_initial_schema.sql`
+unless specified via argument.
 
 ## Steps
 
@@ -21,14 +26,14 @@ Generate a SQL script for creating Supabase tables, indexes, and Row-Level Secur
 
 ### TypeScript to PostgreSQL Type Mapping
 
-| TypeScript | PostgreSQL |
-|---|---|
-| `string` (id) | `uuid DEFAULT gen_random_uuid() PRIMARY KEY` |
-| `string` | `text` |
-| `number` (integer) | `integer` |
-| `number` (decimal/money) | `numeric(10,2)` |
-| `boolean` | `boolean DEFAULT false` |
-| `string` (date) | `date` |
+| TypeScript               | PostgreSQL                                   |
+| ------------------------ | -------------------------------------------- |
+| `string` (id)            | `uuid DEFAULT gen_random_uuid() PRIMARY KEY` |
+| `string`                 | `text`                                       |
+| `number` (integer)       | `integer`                                    |
+| `number` (decimal/money) | `numeric(10,2)`                              |
+| `boolean`                | `boolean DEFAULT false`                      |
+| `string` (date)          | `date`                                       |
 
 ### Table Naming Conventions
 
@@ -66,11 +71,13 @@ CREATE TABLE payment_history (
 );
 ```
 
-**Important**: Add a `user_id` column to every table referencing `auth.users(id)` — this is required for RLS.
+**Important**: Add a `user_id` column to every table referencing `auth.users(id)` — this
+is required for RLS.
 
 ### 2. Indexes
 
 Create indexes for:
+
 - Foreign keys (`recurring_payment_id` on `payment_history`)
 - User ID on all tables (for RLS performance)
 - Commonly queried fields (`date` on `payment_history`)
@@ -121,8 +128,11 @@ CREATE TRIGGER set_updated_at
 
 ### 5. Optional: Seed Data (commented out)
 
-Include commented-out INSERT statements based on `db.json` sample data, for development/testing.
+Include commented-out INSERT statements based on `db.json` sample data, for
+development/testing.
 
 ## Output
 
-Write the complete SQL script to the specified output file (default: `supabase/migrations/001_initial_schema.sql`). Include clear section comments so the developer can review each part before uploading to the Supabase SQL editor.
+Write the complete SQL script to the specified output file (default:
+`supabase/migrations/001_initial_schema.sql`). Include clear section comments so the
+developer can review each part before uploading to the Supabase SQL editor.

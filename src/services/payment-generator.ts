@@ -9,7 +9,7 @@ import { createPaymentHistoryEntry, getPaymentHistory } from './payment-history-
  */
 export function calculateNextDueDate(
   payment: RecurringPayment,
-  fromDate: Date = new Date(),
+  fromDate: Date = new Date()
 ): string {
   const { paymentMonth, paymentDay, periodicity } = payment
 
@@ -35,17 +35,13 @@ export function calculateNextDueDate(
 export function calculateDueDatesInRange(
   payment: RecurringPayment,
   startDate: Date,
-  endDate: Date,
+  endDate: Date
 ): string[] {
   const dueDates: string[] = []
   const { paymentMonth, paymentDay, periodicity } = payment
 
   // Find the first occurrence on or after startDate
-  let currentDate = new Date(
-    startDate.getFullYear(),
-    paymentMonth - 1,
-    paymentDay,
-  )
+  let currentDate = new Date(startDate.getFullYear(), paymentMonth - 1, paymentDay)
 
   // Go back to find the actual first occurrence
   while (currentDate > startDate) {
@@ -75,7 +71,7 @@ export function calculateDueDatesInRange(
  */
 export async function generateDuePayments(
   payments: RecurringPayment[],
-  upToDate: Date = new Date(),
+  upToDate: Date = new Date()
 ): Promise<number> {
   let createdCount = 0
 
@@ -89,15 +85,11 @@ export async function generateDuePayments(
       : new Date(upToDate.getFullYear() - 1, upToDate.getMonth(), upToDate.getDate())
 
     // Calculate all due dates from last payment to upToDate
-    const dueDates = calculateDueDatesInRange(
-      payment,
-      lastPaymentDate,
-      upToDate,
-    )
+    const dueDates = calculateDueDatesInRange(payment, lastPaymentDate, upToDate)
 
     // Create entries for dates that don't have history
     for (const dueDate of dueDates) {
-      const exists = paymentHistory.some((h) => h.date === dueDate)
+      const exists = paymentHistory.some(h => h.date === dueDate)
       if (!exists) {
         await createPaymentHistoryEntry({
           recurringPaymentId: payment.id,

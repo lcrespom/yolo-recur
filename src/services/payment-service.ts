@@ -1,7 +1,4 @@
-import type {
-  RecurringPayment,
-  RecurringPaymentInput,
-} from '../types/payment'
+import type { RecurringPayment, RecurringPaymentInput } from '../types/payment'
 import { config } from '../config'
 
 /**
@@ -18,9 +15,7 @@ export async function getRecurringPayments(): Promise<RecurringPayment[]> {
 /**
  * Fetch a single recurring payment by ID
  */
-export async function getRecurringPayment(
-  id: string,
-): Promise<RecurringPayment> {
+export async function getRecurringPayment(id: string): Promise<RecurringPayment> {
   const response = await fetch(`${config.apiBaseUrl}/recurringPayments/${id}`)
   if (!response.ok) {
     throw new Error(`Failed to fetch recurring payment ${id}`)
@@ -32,7 +27,7 @@ export async function getRecurringPayment(
  * Create a new recurring payment
  */
 export async function createRecurringPayment(
-  data: RecurringPaymentInput,
+  data: RecurringPaymentInput
 ): Promise<RecurringPayment> {
   const response = await fetch(`${config.apiBaseUrl}/recurringPayments`, {
     method: 'POST',
@@ -52,7 +47,7 @@ export async function createRecurringPayment(
  */
 export async function updateRecurringPayment(
   id: string,
-  data: Partial<RecurringPaymentInput>,
+  data: Partial<RecurringPaymentInput>
 ): Promise<RecurringPayment> {
   const response = await fetch(`${config.apiBaseUrl}/recurringPayments/${id}`, {
     method: 'PATCH',
