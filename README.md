@@ -114,19 +114,23 @@ src/
 
 ## Backend Setup
 
-This app uses [json-server](https://github.com/typicode/json-server) as a simple REST API
-backend for development.
+This app uses [Supabase](https://supabase.com) as the backend for authentication and data
+storage.
 
-### Start the backend server
+### Environment Variables
 
-```sh
-npx json-server db.json --port 3001
+Create a `.env` file in the root directory with your Supabase credentials:
+
+```env
+VITE_SUPABASE_URL=your-project-url
+VITE_SUPABASE_CLIENT_KEY=your-anon-key
 ```
 
-The backend runs on `http://localhost:3001` and provides:
+### Database Schema
 
-- `/recurringPayments` — CRUD endpoints for recurring payments
-- `/paymentHistory` — CRUD endpoints for payment history
+The database tables are created in Supabase using the migration script located at
+`supabase/migrations/001_initial_schema.sql`. See that file for the complete schema and
+Row-Level Security (RLS) policies.
 
 ### Data Schema
 
@@ -135,16 +139,17 @@ The backend runs on `http://localhost:3001` and provides:
 ```typescript
 {
   id: string
+  userId: string        // owner of this payment (from auth.users)
   name: string          // e.g., "Netflix Subscription"
   location: string      // e.g., "Home", "Office"
   company: string       // e.g., "Netflix"
-  website?: string
-  phone?: string
+  website: string
+  phone: string
   periodicity: number   // months between payments (1=monthly, 12=yearly)
   paymentMonth: number  // starting month (1-12)
   paymentDay: number    // day of month (1-31)
   cost: number
-  bank?: string
+  bank: string
 }
 ```
 
@@ -153,8 +158,9 @@ The backend runs on `http://localhost:3001` and provides:
 ```typescript
 {
   id: string
+  userId: string        // owner of this entry (from auth.users)
   recurringPaymentId: string
-  date: string // ISO date string
+  date: string          // ISO date string
   amount: number
   isPaid: boolean
 }
@@ -162,9 +168,11 @@ The backend runs on `http://localhost:3001` and provides:
 
 ## Development Workflow
 
-1. **Start the backend** — `npx json-server db.json --port 3001`
+1. **Set up environment variables** — create a `.env` file with your Supabase credentials
 2. **Start the dev server** — `npm run dev`
 3. **Open browser** — navigate to `http://localhost:5173`
+4. **Sign up/Log in** — create an account or log in with an existing one
 
 The app will automatically generate payment history entries for recurring payments based
-on their due dates.
+on their due dates. All data is stored in Supabase with Row-Level Security, so each user
+can only access their own data.

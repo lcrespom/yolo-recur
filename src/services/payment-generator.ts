@@ -101,6 +101,7 @@ export async function generateDuePayments(
         // Add the newly created entry to our local cache to prevent duplicates in this run
         paymentHistory.push({
           id: 'temp',
+          userId: payment.userId,
           recurringPaymentId: payment.id,
           date: dueDate,
           amount: payment.cost,

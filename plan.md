@@ -192,16 +192,16 @@ managed by Supabase.
       be provided.
 - [x] When the user is logged in, provide a logout link in the NavBar.
 
-## Phase 8: replace json-server database with Supabase
+## Phase 8: replace json-server database with Supabase ✅
 
 In this phase, payments data will be migrated to Supabase, and json-server will no longer
 be used at all.
 
-- [ ] Generate a SQL/DDL script for creating the required tables and RLS constraints. The
+- [x] Generate a SQL/DDL script for creating the required tables and RLS constraints. The
       developer will manually upload those scripts to the Supabase project using the
       Supabase Web console.
-- [ ] Re-implement all backend access services with Supabase API calls.
-- [ ] Review backend access queries for efficiency/performance.
+- [x] Re-implement all backend access services with Supabase API calls.
+- [x] Review backend access queries for efficiency/performance.
 
 ## Notes
 

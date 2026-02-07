@@ -3,6 +3,7 @@
  */
 export type RecurringPayment = {
   id: string
+  userId: string
   name: string
   location: string
   company: string
@@ -20,15 +21,17 @@ export type RecurringPayment = {
 }
 
 /**
- * Form data for creating or updating a recurring payment (without id)
+ * Form data for creating or updating a recurring payment (without id and userId)
+ * The userId is automatically set from the authenticated session
  */
-export type RecurringPaymentInput = Omit<RecurringPayment, 'id'>
+export type RecurringPaymentInput = Omit<RecurringPayment, 'id' | 'userId'>
 
 /**
  * Represents a single payment history entry
  */
 export type PaymentHistoryEntry = {
   id: string
+  userId: string
   recurringPaymentId: string
   /** Payment date in ISO format (YYYY-MM-DD) */
   date: string
@@ -39,6 +42,7 @@ export type PaymentHistoryEntry = {
 }
 
 /**
- * Form data for creating or updating a payment history entry (without id)
+ * Form data for creating or updating a payment history entry (without id and userId)
+ * The userId is automatically set from the authenticated session
  */
-export type PaymentHistoryEntryInput = Omit<PaymentHistoryEntry, 'id'>
+export type PaymentHistoryEntryInput = Omit<PaymentHistoryEntry, 'id' | 'userId'>
