@@ -173,7 +173,10 @@
 - [x] Document API service layer
 - [x] Add comments for complex logic
 
-## Phase 7: Migrate from json-server to Supabase
+## Phase 7: Supabase configuration and login
+
+In this phase, the payments data will still be stored in json-server, but login will be
+managed by Supabase.
 
 - [ ] Get the Supabase project URL and anonymous key from the environment
       (VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY, respectively). Make those keys
@@ -187,10 +190,16 @@
 - [ ] Adapt the welcome page to be aware of login status. If no user is logged in, the
       links to dashboard and payments should be removed and a links to login/signin should
       be provided.
+- [ ] When the user is logged in, provide a logout link in the NavBar.
+
+## Phase 8: replace json-server database with Supabase
+
+In this phase, payments data will be migrated to Supabase, and json-server will no longer
+be used at all.
+
 - [ ] Generate a SQL/DDL script for creating the required tables and RLS constraints. The
       developer will manually upload those scripts to the Supabase project using the
       Supabase Web console.
-- [ ] When the user is logged in, provide a logout link in the NavBar.
 - [ ] Re-implement all backend access services with Supabase API calls.
 - [ ] Review backend access queries for efficiency/performance.
 
