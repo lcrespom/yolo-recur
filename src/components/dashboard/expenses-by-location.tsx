@@ -32,9 +32,13 @@ export function ExpensesByLocation({ payments, history }: ExpensesByLocationProp
               {locationSummaries.map(summary => (
                 <tr key={summary.location}>
                   <td className="font-medium">{summary.location}</td>
-                  <td className="text-right">{summary.count}</td>
-                  <td className="text-right">{formatCurrency(summary.monthlyTotal)}</td>
-                  <td className="text-right">{formatCurrency(summary.yearlyTotal)}</td>
+                  <td className="text-right tabular-nums">{summary.count}</td>
+                  <td className="text-right tabular-nums">
+                    {formatCurrency(summary.monthlyTotal)}
+                  </td>
+                  <td className="text-right tabular-nums">
+                    {formatCurrency(summary.yearlyTotal)}
+                  </td>
                 </tr>
               ))}
             </tbody>

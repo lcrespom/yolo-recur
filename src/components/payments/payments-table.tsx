@@ -207,7 +207,9 @@ export function PaymentsTable() {
                   <td className="font-medium">{payment.name}</td>
                   <td>{payment.location}</td>
                   <td>{payment.company}</td>
-                  <td className="text-right">{formatCurrency(payment.cost)}</td>
+                  <td className="text-right tabular-nums">
+                    {formatCurrency(payment.cost)}
+                  </td>
                   <td className="text-center">
                     {getPeriodicityLabel(payment.periodicity)}
                   </td>

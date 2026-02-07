@@ -128,7 +128,7 @@ export function PaymentHistory({
                     <input
                       type="number"
                       step="0.01"
-                      className="input input-bordered input-sm w-32"
+                      className="input input-bordered input-sm w-32 text-right text-sm"
                       value={editingData.amount}
                       onChange={e =>
                         setEditingData({
@@ -138,7 +138,7 @@ export function PaymentHistory({
                       }
                     />
                   ) : (
-                    <div className="text-sm font-semibold">
+                    <div className="w-32 text-right text-sm font-semibold tabular-nums">
                       {formatCurrency(entry.amount)}
                     </div>
                   )}

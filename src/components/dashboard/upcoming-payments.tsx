@@ -73,7 +73,9 @@ export function UpcomingPayments({ payments, history }: UpcomingPaymentsProps) {
                   <td className="font-medium">{formatDate(payment.date)}</td>
                   <td>{payment.paymentName}</td>
                   <td>{payment.location}</td>
-                  <td className="text-right">{formatCurrency(payment.amount)}</td>
+                  <td className="text-right tabular-nums">
+                    {formatCurrency(payment.amount)}
+                  </td>
                 </tr>
               ))}
             </tbody>
