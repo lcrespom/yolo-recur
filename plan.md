@@ -178,9 +178,9 @@
 In this phase, the payments data will still be stored in json-server, but login will be
 managed by Supabase.
 
-- [ ] Get the Supabase project URL and anonymous key from the environment
-      (VITE_SUPABASE_URL and VITE_SUPABASE_CLIENT_KEY, respectively). Make those keys
-      available to the application through the config module.
+- [ ] Get the Supabase project URL and client key from the environment (VITE_SUPABASE_URL
+      and VITE_SUPABASE_CLIENT_KEY, respectively). Make those keys available to the
+      application through the config module.
 - [ ] Setup a login page, supporting Supabase login for existing users and sign in for new
       ones. The supabase e-mail auth provider is already enabled in the Supabase project.
 - [ ] If a user is logged in, link to Dashboard and Payments pages from the navbar.

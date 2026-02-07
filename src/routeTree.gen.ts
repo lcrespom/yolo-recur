@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PaymentsIndexRouteImport } from './routes/payments/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as PaymentsPaymentIdRouteImport } from './routes/payments/$paymentId'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,12 +43,14 @@ const PaymentsPaymentIdRoute = PaymentsPaymentIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/payments/$paymentId': typeof PaymentsPaymentIdRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/payments/': typeof PaymentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/payments/$paymentId': typeof PaymentsPaymentIdRoute
   '/dashboard': typeof DashboardIndexRoute
   '/payments': typeof PaymentsIndexRoute
@@ -50,20 +58,33 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/payments/$paymentId': typeof PaymentsPaymentIdRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/payments/': typeof PaymentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/payments/$paymentId' | '/dashboard/' | '/payments/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/payments/$paymentId'
+    | '/dashboard/'
+    | '/payments/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/payments/$paymentId' | '/dashboard' | '/payments'
-  id: '__root__' | '/' | '/payments/$paymentId' | '/dashboard/' | '/payments/'
+  to: '/' | '/login' | '/payments/$paymentId' | '/dashboard' | '/payments'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/payments/$paymentId'
+    | '/dashboard/'
+    | '/payments/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
   PaymentsPaymentIdRoute: typeof PaymentsPaymentIdRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
   PaymentsIndexRoute: typeof PaymentsIndexRoute
@@ -71,6 +92,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +132,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
   PaymentsPaymentIdRoute: PaymentsPaymentIdRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   PaymentsIndexRoute: PaymentsIndexRoute,

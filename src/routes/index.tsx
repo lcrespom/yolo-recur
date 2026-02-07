@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { useAuth } from '../hooks/use-auth'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -21,6 +22,8 @@ function FeatureCard({ title, children }: FeatureCardProps) {
 }
 
 function HomePage() {
+  const { user } = useAuth()
+
   return (
     <div className="space-y-12">
       {/* Hero Section */}
@@ -37,12 +40,33 @@ function HomePage() {
               spending.
             </p>
             <div className="flex justify-center gap-4">
-              <Link to="/dashboard" className="btn btn-primary btn-md lg:btn-lg">
-                View Dashboard
-              </Link>
-              <Link to="/payments" className="btn btn-outline btn-md lg:btn-lg">
-                Manage Payments
-              </Link>
+              {user ? (
+                <>
+                  <Link to="/dashboard" className="btn btn-primary btn-md lg:btn-lg">
+                    View Dashboard
+                  </Link>
+                  <Link to="/payments" className="btn btn-outline btn-md lg:btn-lg">
+                    Manage Payments
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    search={{ mode: 'login' }}
+                    className="btn btn-primary btn-md lg:btn-lg"
+                  >
+                    Log In
+                  </Link>
+                  <Link
+                    to="/login"
+                    search={{ mode: 'signup' }}
+                    className="btn btn-outline btn-md lg:btn-lg"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -107,9 +131,15 @@ function HomePage() {
             </div>
           </div>
           <div className="card-actions mt-4 justify-end">
-            <Link to="/payments" className="btn btn-primary">
-              Add Your First Payment
-            </Link>
+            {user ? (
+              <Link to="/payments" className="btn btn-primary">
+                Add Your First Payment
+              </Link>
+            ) : (
+              <Link to="/login" search={{ mode: 'signup' }} className="btn btn-primary">
+                Get Started
+              </Link>
+            )}
           </div>
         </div>
       </div>

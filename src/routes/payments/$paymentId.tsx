@@ -7,9 +7,14 @@ import { getRecurringPayment } from '../../services/payment-service'
 import { getPaymentHistory } from '../../services/payment-history-service'
 import { PaymentForm } from '../../components/payments/payment-form'
 import { PaymentHistory } from '../../components/payments/payment-history'
+import { AuthGuard } from '../../components/common/auth-guard'
 
 export const Route = createFileRoute('/payments/$paymentId')({
-  component: PaymentDetailPage,
+  component: () => (
+    <AuthGuard>
+      <PaymentDetailPage />
+    </AuthGuard>
+  ),
 })
 
 function PaymentDetailPage() {

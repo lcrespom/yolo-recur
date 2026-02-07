@@ -8,9 +8,14 @@ import { generateDuePayments } from '../../services/payment-generator'
 import { ExpensesSummary } from '../../components/dashboard/expenses-summary'
 import { ExpensesByLocation } from '../../components/dashboard/expenses-by-location'
 import { UpcomingPayments } from '../../components/dashboard/upcoming-payments'
+import { AuthGuard } from '../../components/common/auth-guard'
 
 export const Route = createFileRoute('/dashboard/')({
-  component: DashboardPage,
+  component: () => (
+    <AuthGuard>
+      <DashboardPage />
+    </AuthGuard>
+  ),
 })
 
 function DashboardPage() {

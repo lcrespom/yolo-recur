@@ -1,6 +1,8 @@
 # Recurring Payments Tracking App
 
-A modern web application for tracking and managing recurring payments (subscriptions, memberships, utilities, etc.). Built with React 19, TypeScript, and a carefully selected stack for type-safety, performance, and maintainability.
+A modern web application for tracking and managing recurring payments (subscriptions,
+memberships, utilities, etc.). Built with React 19, TypeScript, and a carefully selected
+stack for type-safety, performance, and maintainability.
 
 ## Tech Stack
 
@@ -57,12 +59,16 @@ npm run lint
 ## Features
 
 ### Dashboard
+
 - **Expense Summary** — view total monthly and yearly expenses
 - **Upcoming Payments** — see which payments are due soon (unpaid payment history entries)
-- **Expenses by Location** — breakdown of costs grouped by location (e.g., Home, Office, Personal)
-- **Automatic Payment Generation** — the app automatically generates payment history entries based on due dates
+- **Expenses by Location** — breakdown of costs grouped by location (e.g., Home, Office,
+  Personal)
+- **Automatic Payment Generation** — the app automatically generates payment history
+  entries based on due dates
 
 ### Payments Management
+
 - **Payments List** — searchable and sortable table of all recurring payments
 - **Add/Edit Payments** — comprehensive form for managing payment details:
   - Basic info: name, location, company
@@ -75,6 +81,7 @@ npm run lint
 - **Unsaved Changes Detection** — warns before leaving with unsaved edits
 
 ### User Experience
+
 - **Dark/Light Theme** — automatically matches system preference
 - **Responsive Design** — works on desktop, tablet, and mobile
 - **Loading States** — spinner indicators during async operations
@@ -107,7 +114,8 @@ src/
 
 ## Backend Setup
 
-This app uses [json-server](https://github.com/typicode/json-server) as a simple REST API backend for development.
+This app uses [json-server](https://github.com/typicode/json-server) as a simple REST API
+backend for development.
 
 ### Start the backend server
 
@@ -116,12 +124,14 @@ npx json-server db.json --port 3001
 ```
 
 The backend runs on `http://localhost:3001` and provides:
+
 - `/recurringPayments` — CRUD endpoints for recurring payments
 - `/paymentHistory` — CRUD endpoints for payment history
 
 ### Data Schema
 
 **RecurringPayment**
+
 ```typescript
 {
   id: string
@@ -139,11 +149,12 @@ The backend runs on `http://localhost:3001` and provides:
 ```
 
 **PaymentHistoryEntry**
+
 ```typescript
 {
   id: string
   recurringPaymentId: string
-  date: string          // ISO date string
+  date: string // ISO date string
   amount: number
   isPaid: boolean
 }
@@ -155,4 +166,5 @@ The backend runs on `http://localhost:3001` and provides:
 2. **Start the dev server** — `npm run dev`
 3. **Open browser** — navigate to `http://localhost:5173`
 
-The app will automatically generate payment history entries for recurring payments based on their due dates.
+The app will automatically generate payment history entries for recurring payments based
+on their due dates.

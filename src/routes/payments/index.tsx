@@ -1,8 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { PaymentsTable } from '../../components/payments/payments-table'
+import { AuthGuard } from '../../components/common/auth-guard'
 
 export const Route = createFileRoute('/payments/')({
-  component: PaymentsPage,
+  component: () => (
+    <AuthGuard>
+      <PaymentsPage />
+    </AuthGuard>
+  ),
 })
 
 function PaymentsPage() {

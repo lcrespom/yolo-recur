@@ -31,8 +31,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
       }
 
       return (
-        <div className="flex min-h-screen items-center justify-center bg-base-100">
-          <div className="card w-96 bg-base-200 shadow-xl">
+        <div className="bg-base-100 flex min-h-screen items-center justify-center">
+          <div className="card bg-base-200 w-96 shadow-xl">
             <div className="card-body">
               <h2 className="card-title text-error">Something went wrong</h2>
               <p className="text-base-content/70">
@@ -40,7 +40,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
               </p>
               {this.state.error && (
                 <div className="mt-4">
-                  <details className="collapse collapse-arrow bg-base-300">
+                  <details className="collapse-arrow bg-base-300 collapse">
                     <summary className="collapse-title text-sm font-medium">
                       Error details
                     </summary>

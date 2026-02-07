@@ -47,13 +47,16 @@ export async function updatePaymentHistoryEntry(
   id: string,
   data: Partial<PaymentHistoryEntryInput>
 ): Promise<PaymentHistoryEntry> {
-  const response = await fetchWithErrorHandling(`${config.apiBaseUrl}/paymentHistory/${id}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
+  const response = await fetchWithErrorHandling(
+    `${config.apiBaseUrl}/paymentHistory/${id}`,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }
+  )
   return response.json()
 }
 

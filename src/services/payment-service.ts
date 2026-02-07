@@ -26,13 +26,16 @@ export async function getRecurringPayment(id: string): Promise<RecurringPayment>
 export async function createRecurringPayment(
   data: RecurringPaymentInput
 ): Promise<RecurringPayment> {
-  const response = await fetchWithErrorHandling(`${config.apiBaseUrl}/recurringPayments`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
+  const response = await fetchWithErrorHandling(
+    `${config.apiBaseUrl}/recurringPayments`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }
+  )
   return response.json()
 }
 
