@@ -1,5 +1,6 @@
 import type { PaymentHistoryEntry, PaymentHistoryEntryInput } from '../types/payment'
 import { config } from '../config'
+import { fetchWithErrorHandling } from '../utils/error-handler'
 
 /**
  * Fetch payment history for a specific recurring payment
@@ -7,12 +8,9 @@ import { config } from '../config'
 export async function getPaymentHistory(
   recurringPaymentId: string
 ): Promise<PaymentHistoryEntry[]> {
-  const response = await fetch(
+  const response = await fetchWithErrorHandling(
     `${config.apiBaseUrl}/paymentHistory?recurringPaymentId=${recurringPaymentId}&_sort=-date`
   )
-  if (!response.ok) {
-    throw new Error('Failed to fetch payment history')
-  }
   return response.json()
 }
 
@@ -20,10 +18,9 @@ export async function getPaymentHistory(
  * Fetch all payment history entries
  */
 export async function getAllPaymentHistory(): Promise<PaymentHistoryEntry[]> {
-  const response = await fetch(`${config.apiBaseUrl}/paymentHistory?_sort=-date`)
-  if (!response.ok) {
-    throw new Error('Failed to fetch payment history')
-  }
+  const response = await fetchWithErrorHandling(
+    `${config.apiBaseUrl}/paymentHistory?_sort=-date`
+  )
   return response.json()
 }
 
@@ -33,16 +30,13 @@ export async function getAllPaymentHistory(): Promise<PaymentHistoryEntry[]> {
 export async function createPaymentHistoryEntry(
   data: PaymentHistoryEntryInput
 ): Promise<PaymentHistoryEntry> {
-  const response = await fetch(`${config.apiBaseUrl}/paymentHistory`, {
+  const response = await fetchWithErrorHandling(`${config.apiBaseUrl}/paymentHistory`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
   })
-  if (!response.ok) {
-    throw new Error('Failed to create payment history entry')
-  }
   return response.json()
 }
 
@@ -53,16 +47,13 @@ export async function updatePaymentHistoryEntry(
   id: string,
   data: Partial<PaymentHistoryEntryInput>
 ): Promise<PaymentHistoryEntry> {
-  const response = await fetch(`${config.apiBaseUrl}/paymentHistory/${id}`, {
+  const response = await fetchWithErrorHandling(`${config.apiBaseUrl}/paymentHistory/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
   })
-  if (!response.ok) {
-    throw new Error(`Failed to update payment history entry ${id}`)
-  }
   return response.json()
 }
 
@@ -70,10 +61,7 @@ export async function updatePaymentHistoryEntry(
  * Delete a payment history entry
  */
 export async function deletePaymentHistoryEntry(id: string): Promise<void> {
-  const response = await fetch(`${config.apiBaseUrl}/paymentHistory/${id}`, {
+  await fetchWithErrorHandling(`${config.apiBaseUrl}/paymentHistory/${id}`, {
     method: 'DELETE',
   })
-  if (!response.ok) {
-    throw new Error(`Failed to delete payment history entry ${id}`)
-  }
 }

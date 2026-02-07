@@ -1,7 +1,6 @@
-# React + Tailwind Template
+# Recurring Payments Tracking App
 
-A template web application built with a modern React stack, ready for building responsive,
-themeable single-page applications.
+A modern web application for tracking and managing recurring payments (subscriptions, memberships, utilities, etc.). Built with React 19, TypeScript, and a carefully selected stack for type-safety, performance, and maintainability.
 
 ## Tech Stack
 
@@ -55,8 +54,105 @@ npm run format
 npm run lint
 ```
 
+## Features
+
+### Dashboard
+- **Expense Summary** — view total monthly and yearly expenses
+- **Upcoming Payments** — see which payments are due soon (unpaid payment history entries)
+- **Expenses by Location** — breakdown of costs grouped by location (e.g., Home, Office, Personal)
+- **Automatic Payment Generation** — the app automatically generates payment history entries based on due dates
+
+### Payments Management
+- **Payments List** — searchable and sortable table of all recurring payments
+- **Add/Edit Payments** — comprehensive form for managing payment details:
+  - Basic info: name, location, company
+  - Contact: website, phone
+  - Payment settings: cost, frequency (monthly, quarterly, yearly, etc.)
+  - Payment schedule: payment day and start month
+  - Bank/payment method
+- **Payment History** — track when payments were made and mark them as paid
+- **Form Validation** — real-time validation with user-friendly error messages
+- **Unsaved Changes Detection** — warns before leaving with unsaved edits
+
+### User Experience
+- **Dark/Light Theme** — automatically matches system preference
+- **Responsive Design** — works on desktop, tablet, and mobile
+- **Loading States** — spinner indicators during async operations
+- **Error Handling** — user-friendly error messages with network error detection
+- **Error Boundaries** — graceful error recovery for React errors
+
 ## Project Structure
 
-The app includes a responsive navbar with dark/light theme toggle and two sample pages
-routed via TanStack Router (`/page1`, `/page2`). Use this as a starting point and replace
-the sample pages with your own.
+```
+src/
+├── routes/              # TanStack Router file-based routes
+│   ├── __root.tsx       # Root layout with navbar and error boundary
+│   ├── index.tsx        # Home page
+│   ├── dashboard/       # Dashboard page
+│   └── payments/        # Payments list and detail pages
+├── components/          # React components
+│   ├── common/          # Shared components (Navbar, ThemeToggle, FormInput, etc.)
+│   ├── dashboard/       # Dashboard-specific components
+│   └── payments/        # Payment-specific components
+├── services/            # API service layer
+│   ├── payment-service.ts          # Recurring payments CRUD
+│   ├── payment-history-service.ts  # Payment history CRUD
+│   ├── payment-generator.ts        # Auto-generate due payments
+│   └── expense-calculation-service.ts  # Calculate totals and summaries
+├── types/               # TypeScript type definitions
+├── utils/               # Utility functions (formatting, error handling)
+├── validation/          # Zod schemas for form validation
+└── test/                # Test setup and utilities
+```
+
+## Backend Setup
+
+This app uses [json-server](https://github.com/typicode/json-server) as a simple REST API backend for development.
+
+### Start the backend server
+
+```sh
+npx json-server db.json --port 3001
+```
+
+The backend runs on `http://localhost:3001` and provides:
+- `/recurringPayments` — CRUD endpoints for recurring payments
+- `/paymentHistory` — CRUD endpoints for payment history
+
+### Data Schema
+
+**RecurringPayment**
+```typescript
+{
+  id: string
+  name: string          // e.g., "Netflix Subscription"
+  location: string      // e.g., "Home", "Office"
+  company: string       // e.g., "Netflix"
+  website?: string
+  phone?: string
+  periodicity: number   // months between payments (1=monthly, 12=yearly)
+  paymentMonth: number  // starting month (1-12)
+  paymentDay: number    // day of month (1-31)
+  cost: number
+  bank?: string
+}
+```
+
+**PaymentHistoryEntry**
+```typescript
+{
+  id: string
+  recurringPaymentId: string
+  date: string          // ISO date string
+  amount: number
+  isPaid: boolean
+}
+```
+
+## Development Workflow
+
+1. **Start the backend** — `npx json-server db.json --port 3001`
+2. **Start the dev server** — `npm run dev`
+3. **Open browser** — navigate to `http://localhost:5173`
+
+The app will automatically generate payment history entries for recurring payments based on their due dates.

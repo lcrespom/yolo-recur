@@ -1,14 +1,12 @@
 import type { RecurringPayment, RecurringPaymentInput } from '../types/payment'
 import { config } from '../config'
+import { fetchWithErrorHandling } from '../utils/error-handler'
 
 /**
  * Fetch all recurring payments
  */
 export async function getRecurringPayments(): Promise<RecurringPayment[]> {
-  const response = await fetch(`${config.apiBaseUrl}/recurringPayments`)
-  if (!response.ok) {
-    throw new Error('Failed to fetch recurring payments')
-  }
+  const response = await fetchWithErrorHandling(`${config.apiBaseUrl}/recurringPayments`)
   return response.json()
 }
 
@@ -16,10 +14,9 @@ export async function getRecurringPayments(): Promise<RecurringPayment[]> {
  * Fetch a single recurring payment by ID
  */
 export async function getRecurringPayment(id: string): Promise<RecurringPayment> {
-  const response = await fetch(`${config.apiBaseUrl}/recurringPayments/${id}`)
-  if (!response.ok) {
-    throw new Error(`Failed to fetch recurring payment ${id}`)
-  }
+  const response = await fetchWithErrorHandling(
+    `${config.apiBaseUrl}/recurringPayments/${id}`
+  )
   return response.json()
 }
 
@@ -29,16 +26,13 @@ export async function getRecurringPayment(id: string): Promise<RecurringPayment>
 export async function createRecurringPayment(
   data: RecurringPaymentInput
 ): Promise<RecurringPayment> {
-  const response = await fetch(`${config.apiBaseUrl}/recurringPayments`, {
+  const response = await fetchWithErrorHandling(`${config.apiBaseUrl}/recurringPayments`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
   })
-  if (!response.ok) {
-    throw new Error('Failed to create recurring payment')
-  }
   return response.json()
 }
 
@@ -49,16 +43,16 @@ export async function updateRecurringPayment(
   id: string,
   data: Partial<RecurringPaymentInput>
 ): Promise<RecurringPayment> {
-  const response = await fetch(`${config.apiBaseUrl}/recurringPayments/${id}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-  if (!response.ok) {
-    throw new Error(`Failed to update recurring payment ${id}`)
-  }
+  const response = await fetchWithErrorHandling(
+    `${config.apiBaseUrl}/recurringPayments/${id}`,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }
+  )
   return response.json()
 }
 
@@ -66,10 +60,7 @@ export async function updateRecurringPayment(
  * Delete a recurring payment
  */
 export async function deleteRecurringPayment(id: string): Promise<void> {
-  const response = await fetch(`${config.apiBaseUrl}/recurringPayments/${id}`, {
+  await fetchWithErrorHandling(`${config.apiBaseUrl}/recurringPayments/${id}`, {
     method: 'DELETE',
   })
-  if (!response.ok) {
-    throw new Error(`Failed to delete recurring payment ${id}`)
-  }
 }
