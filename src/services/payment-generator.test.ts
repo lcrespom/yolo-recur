@@ -14,6 +14,7 @@ const createMockPayment = (
   overrides: Partial<RecurringPayment> = {}
 ): RecurringPayment => ({
   id: '1',
+  userId: 'test-user-id',
   name: 'Test Payment',
   location: 'Test Location',
   company: 'Test Company',
@@ -230,6 +231,7 @@ describe('generateDuePayments', () => {
     vi.mocked(paymentHistoryService.getPaymentHistory).mockResolvedValue([])
     vi.mocked(paymentHistoryService.createPaymentHistoryEntry).mockResolvedValue({
       id: 'new-entry',
+      userId: 'test-user-id',
       recurringPaymentId: 'payment-1',
       date: '2024-01-15',
       amount: 100,
@@ -256,6 +258,7 @@ describe('generateDuePayments', () => {
     vi.mocked(paymentHistoryService.getPaymentHistory).mockResolvedValue([
       {
         id: 'existing-1',
+        userId: 'test-user-id',
         recurringPaymentId: 'payment-1',
         date: '2024-02-15',
         amount: 100,
@@ -263,6 +266,7 @@ describe('generateDuePayments', () => {
       },
       {
         id: 'existing-2',
+        userId: 'test-user-id',
         recurringPaymentId: 'payment-1',
         date: '2024-01-15',
         amount: 100,
@@ -291,6 +295,7 @@ describe('generateDuePayments', () => {
     vi.mocked(paymentHistoryService.getPaymentHistory).mockResolvedValue([
       {
         id: 'existing-2',
+        userId: 'test-user-id',
         recurringPaymentId: 'payment-1',
         date: '2024-02-15',
         amount: 100,
@@ -298,6 +303,7 @@ describe('generateDuePayments', () => {
       },
       {
         id: 'existing-1',
+        userId: 'test-user-id',
         recurringPaymentId: 'payment-1',
         date: '2024-01-15',
         amount: 100,
@@ -307,6 +313,7 @@ describe('generateDuePayments', () => {
 
     vi.mocked(paymentHistoryService.createPaymentHistoryEntry).mockResolvedValue({
       id: 'new-entry',
+      userId: 'test-user-id',
       recurringPaymentId: 'payment-1',
       date: '2024-03-15',
       amount: 100,
@@ -349,6 +356,7 @@ describe('generateDuePayments', () => {
     vi.mocked(paymentHistoryService.getPaymentHistory).mockResolvedValue([])
     vi.mocked(paymentHistoryService.createPaymentHistoryEntry).mockResolvedValue({
       id: 'new-entry',
+      userId: 'test-user-id',
       recurringPaymentId: 'payment-1',
       date: '2024-01-15',
       amount: 100,
@@ -374,6 +382,7 @@ describe('generateDuePayments', () => {
     vi.mocked(paymentHistoryService.getPaymentHistory).mockResolvedValue([])
     vi.mocked(paymentHistoryService.createPaymentHistoryEntry).mockResolvedValue({
       id: 'new-entry',
+      userId: 'test-user-id',
       recurringPaymentId: 'payment-1',
       date: '2024-01-15',
       amount: 99.99,
@@ -400,6 +409,7 @@ describe('generateDuePayments', () => {
     vi.mocked(paymentHistoryService.getPaymentHistory).mockResolvedValue([])
     vi.mocked(paymentHistoryService.createPaymentHistoryEntry).mockResolvedValue({
       id: 'new-entry',
+      userId: 'test-user-id',
       recurringPaymentId: 'payment-1',
       date: '2024-01-15',
       amount: 100,

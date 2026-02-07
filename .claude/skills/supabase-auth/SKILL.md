@@ -124,5 +124,5 @@ Update `src/routes/index.tsx`:
 6. Update navbar to be auth-aware
 7. Update welcome page to be auth-aware
 8. Add route protection to dashboard and payments
-9. Run `npx tsc` to validate types
+9. Run `npx tsc -b` to validate types
 10. Run `npm test` to verify existing tests still pass

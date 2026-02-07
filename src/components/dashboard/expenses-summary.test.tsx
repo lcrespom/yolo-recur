@@ -5,6 +5,7 @@ import type { RecurringPayment, PaymentHistoryEntry } from '../../types/payment'
 
 const mockPayment: RecurringPayment = {
   id: '1',
+  userId: 'test-user-id',
   name: 'Netflix',
   location: 'Home',
   company: 'Netflix Inc',
@@ -48,6 +49,7 @@ describe('ExpensesSummary', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 20.0, // Actual amount differs from template
@@ -74,6 +76,7 @@ describe('ExpensesSummary', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 20.0,
@@ -100,6 +103,7 @@ describe('ExpensesSummary', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `paid-${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 20.0,
@@ -113,6 +117,7 @@ describe('ExpensesSummary', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `unpaid-${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 100.0,
@@ -145,6 +150,7 @@ describe('ExpensesSummary', () => {
       date.setMonth(date.getMonth() - i * 3)
       history.push({
         id: `${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 350.0, // Actual differs from template
@@ -183,6 +189,7 @@ describe('ExpensesSummary', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `1-${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 150.0,

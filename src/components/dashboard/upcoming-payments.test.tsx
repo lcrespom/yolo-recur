@@ -6,6 +6,7 @@ import type { RecurringPayment, PaymentHistoryEntry } from '../../types/payment'
 const mockPayments: RecurringPayment[] = [
   {
     id: '1',
+    userId: 'test-user-id',
     name: 'Netflix',
     location: 'Home',
     company: 'Netflix Inc',
@@ -19,6 +20,7 @@ const mockPayments: RecurringPayment[] = [
   },
   {
     id: '2',
+    userId: 'test-user-id',
     name: 'Spotify',
     location: 'Personal',
     company: 'Spotify',
@@ -35,6 +37,7 @@ const mockPayments: RecurringPayment[] = [
 const mockHistory: PaymentHistoryEntry[] = [
   {
     id: 'h1',
+    userId: 'test-user-id',
     recurringPaymentId: '1',
     date: '2026-02-15',
     amount: 15.99,
@@ -42,6 +45,7 @@ const mockHistory: PaymentHistoryEntry[] = [
   },
   {
     id: 'h2',
+    userId: 'test-user-id',
     recurringPaymentId: '2',
     date: '2026-02-01',
     amount: 9.99,
@@ -49,6 +53,7 @@ const mockHistory: PaymentHistoryEntry[] = [
   },
   {
     id: 'h3',
+    userId: 'test-user-id',
     recurringPaymentId: '1',
     date: '2026-01-15',
     amount: 15.99,
@@ -96,6 +101,7 @@ describe('UpcomingPayments', () => {
     const allPaidHistory: PaymentHistoryEntry[] = [
       {
         id: 'h1',
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: '2026-02-15',
         amount: 15.99,

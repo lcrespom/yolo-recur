@@ -139,15 +139,15 @@ Row-Level Security (RLS) policies.
 ```typescript
 {
   id: string
-  userId: string        // owner of this payment (from auth.users)
-  name: string          // e.g., "Netflix Subscription"
-  location: string      // e.g., "Home", "Office"
-  company: string       // e.g., "Netflix"
+  userId: string // owner of this payment (from auth.users)
+  name: string // e.g., "Netflix Subscription"
+  location: string // e.g., "Home", "Office"
+  company: string // e.g., "Netflix"
   website: string
   phone: string
-  periodicity: number   // months between payments (1=monthly, 12=yearly)
-  paymentMonth: number  // starting month (1-12)
-  paymentDay: number    // day of month (1-31)
+  periodicity: number // months between payments (1=monthly, 12=yearly)
+  paymentMonth: number // starting month (1-12)
+  paymentDay: number // day of month (1-31)
   cost: number
   bank: string
 }
@@ -158,9 +158,9 @@ Row-Level Security (RLS) policies.
 ```typescript
 {
   id: string
-  userId: string        // owner of this entry (from auth.users)
+  userId: string // owner of this entry (from auth.users)
   recurringPaymentId: string
-  date: string          // ISO date string
+  date: string // ISO date string
   amount: number
   isPaid: boolean
 }

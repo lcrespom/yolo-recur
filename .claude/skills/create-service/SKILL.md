@@ -73,5 +73,5 @@ describe('functionName', () => {
 2. Read `src/types/payment.ts` to understand existing type conventions
 3. Create the service file
 4. Create the test file
-5. Run `npx tsc` to validate types
+5. Run `npx tsc -b` to validate types
 6. Run `npx vitest run src/services/$ARGUMENTS.test.ts` to validate tests pass

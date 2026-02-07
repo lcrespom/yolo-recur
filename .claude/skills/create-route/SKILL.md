@@ -76,5 +76,5 @@ useEffect(() => {
 2. Read `src/routes/__root.tsx` to understand the layout context
 3. Create the route file
 4. If the route should appear in the navbar, update `src/routes/__root.tsx` navLinks array
-5. Run `npx tsc` to validate types
+5. Run `npx tsc -b` to validate types
 6. Inform the user to run `npm run dev` to trigger route tree regeneration

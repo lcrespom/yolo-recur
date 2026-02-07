@@ -6,6 +6,7 @@ import type { RecurringPayment } from '../../types/payment'
 const mockPayments: RecurringPayment[] = [
   {
     id: '1',
+    userId: 'test-user-id',
     name: 'Netflix',
     location: 'Home',
     company: 'Netflix Inc',
@@ -19,6 +20,7 @@ const mockPayments: RecurringPayment[] = [
   },
   {
     id: '2',
+    userId: 'test-user-id',
     name: 'Spotify',
     location: 'Personal',
     company: 'Spotify',
@@ -32,6 +34,7 @@ const mockPayments: RecurringPayment[] = [
   },
   {
     id: '3',
+    userId: 'test-user-id',
     name: 'Home Insurance',
     location: 'Home',
     company: 'Insurance Co',

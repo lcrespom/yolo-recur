@@ -14,6 +14,7 @@ vi.mock('../../services/payment-service', () => ({
 
 const mockPayment: RecurringPayment = {
   id: '1',
+  userId: 'test-user-id',
   name: 'Netflix',
   location: 'Home',
   company: 'Netflix Inc',

@@ -10,6 +10,7 @@ const createMockPayment = (
   overrides: Partial<RecurringPayment> = {}
 ): RecurringPayment => ({
   id: '1',
+  userId: 'test-user-id',
   name: 'Test Payment',
   location: 'Test',
   company: 'Test Co',
@@ -41,6 +42,7 @@ describe('calculateYearlyFromHistory', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 100,
@@ -62,6 +64,7 @@ describe('calculateYearlyFromHistory', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 150,
@@ -84,6 +87,7 @@ describe('calculateYearlyFromHistory', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `paid-${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 100,
@@ -96,6 +100,7 @@ describe('calculateYearlyFromHistory', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `unpaid-${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 200,
@@ -118,6 +123,7 @@ describe('calculateYearlyFromHistory', () => {
       date.setMonth(date.getMonth() - i * 3)
       history.push({
         id: `${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 300,
@@ -140,6 +146,7 @@ describe('calculateYearlyFromHistory', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `1-${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 100,
@@ -152,6 +159,7 @@ describe('calculateYearlyFromHistory', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `2-${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '2',
         date: date.toISOString().split('T')[0],
         amount: 200,
@@ -174,6 +182,7 @@ describe('calculateYearlyFromHistory', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `recent-${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 100,
@@ -186,6 +195,7 @@ describe('calculateYearlyFromHistory', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `old-${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 200,
@@ -222,6 +232,7 @@ describe('calculateTotals', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 120,
@@ -247,6 +258,7 @@ describe('calculateTotals', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `1-${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 150,
@@ -310,6 +322,7 @@ describe('groupByLocation', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `1-${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 150, // Different from template
@@ -346,6 +359,7 @@ describe('groupByLocation', () => {
       date.setMonth(date.getMonth() - i)
       history.push({
         id: `1-${i}`,
+        userId: 'test-user-id',
         recurringPaymentId: '1',
         date: date.toISOString().split('T')[0],
         amount: 120,

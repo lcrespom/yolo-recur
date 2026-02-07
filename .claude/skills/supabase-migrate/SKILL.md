@@ -116,5 +116,5 @@ need conversion between the API and TypeScript interfaces.
 3. Check/update `src/config.ts` for Supabase env vars
 4. Rewrite each function to use Supabase client, preserving signatures
 5. Update the test file to mock Supabase client instead of fetch
-6. Run `npx tsc` to validate types
+6. Run `npx tsc -b` to validate types
 7. Run tests to verify behavior is preserved

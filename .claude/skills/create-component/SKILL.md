@@ -72,5 +72,5 @@ Key patterns:
 2. Read `src/types/payment.ts` if the component uses payment data
 3. Create the component file
 4. Create the test file
-5. Run `npx tsc` to validate types compile
+5. Run `npx tsc -b` to validate types compile
 6. Run `npx vitest run src/components/$ARGUMENTS.test.tsx` to validate tests pass

@@ -34,9 +34,9 @@ export function PaymentHistory({
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editingData, setEditingData] = useState<EditingEntry | null>(null)
   const [isSaving, setIsSaving] = useState(false)
-  const [optimisticUpdates, setOptimisticUpdates] = useState<Map<string, OptimisticUpdate>>(
-    new Map()
-  )
+  const [optimisticUpdates, setOptimisticUpdates] = useState<
+    Map<string, OptimisticUpdate>
+  >(new Map())
 
   // Apply optimistic updates to history
   const displayHistory = history.map(entry => {
@@ -69,13 +69,12 @@ export function PaymentHistory({
     if (!editingData) return
 
     // Optimistic update
-    setOptimisticUpdates(
-      prev =>
-        new Map(prev).set(editingData.id, {
-          id: editingData.id,
-          amount: editingData.amount,
-          isPaid: editingData.isPaid,
-        })
+    setOptimisticUpdates(prev =>
+      new Map(prev).set(editingData.id, {
+        id: editingData.id,
+        amount: editingData.amount,
+        isPaid: editingData.isPaid,
+      })
     )
 
     try {
@@ -112,7 +111,9 @@ export function PaymentHistory({
     const newIsPaid = !entry.isPaid
 
     // Optimistic update
-    setOptimisticUpdates(prev => new Map(prev).set(entry.id, { id: entry.id, isPaid: newIsPaid }))
+    setOptimisticUpdates(prev =>
+      new Map(prev).set(entry.id, { id: entry.id, isPaid: newIsPaid })
+    )
 
     try {
       await updatePaymentHistoryEntry(entry.id, {

@@ -17,6 +17,7 @@ vi.mock('../../services/payment-service')
 const mockPayments: RecurringPayment[] = [
   {
     id: '1',
+    userId: 'test-user-id',
     name: 'Electricity',
     location: 'Main House',
     company: 'PowerCo',
@@ -30,6 +31,7 @@ const mockPayments: RecurringPayment[] = [
   },
   {
     id: '2',
+    userId: 'test-user-id',
     name: 'Internet',
     location: 'Main House',
     company: 'FastNet ISP',
@@ -43,6 +45,7 @@ const mockPayments: RecurringPayment[] = [
   },
   {
     id: '3',
+    userId: 'test-user-id',
     name: 'Home Insurance',
     location: 'Beach House',
     company: 'SecureHome Insurance',

@@ -144,7 +144,8 @@ export async function updateRecurringPayment(
   const userId = await getCurrentUserId()
 
   // Build the update object with only provided fields
-  const updates: Partial<Omit<RecurringPaymentRow, 'id' | 'created_at' | 'updated_at'>> = {}
+  const updates: Partial<Omit<RecurringPaymentRow, 'id' | 'created_at' | 'updated_at'>> =
+    {}
 
   if (input.name !== undefined) updates.name = input.name
   if (input.location !== undefined) updates.location = input.location
