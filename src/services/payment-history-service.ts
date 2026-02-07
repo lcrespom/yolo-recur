@@ -97,10 +97,12 @@ export async function getAllPaymentHistory(): Promise<PaymentHistoryEntry[]> {
 
 /**
  * Create a new payment history entry
+ * If an entry with the same recurring_payment_id and date already exists,
+ * this will return null (handled by unique constraint)
  */
 export async function createPaymentHistoryEntry(
   input: PaymentHistoryEntryInput
-): Promise<PaymentHistoryEntry> {
+): Promise<PaymentHistoryEntry | null> {
   const userId = await getCurrentUserId()
   const row = mapEntryToRow(input, userId)
 
@@ -111,6 +113,12 @@ export async function createPaymentHistoryEntry(
     .single()
 
   if (error) {
+    // Check if it's a unique constraint violation (duplicate entry)
+    // PostgreSQL error code 23505 = unique_violation
+    if (error.code === '23505') {
+      // Entry already exists, return null to indicate no new entry was created
+      return null
+    }
     throw new Error(`Failed to create payment history entry: ${error.message}`)
   }
 

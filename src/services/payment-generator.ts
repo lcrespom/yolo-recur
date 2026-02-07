@@ -91,22 +91,25 @@ export async function generateDuePayments(
     for (const dueDate of dueDates) {
       const exists = paymentHistory.some(h => h.date === dueDate)
       if (!exists) {
-        await createPaymentHistoryEntry({
+        const created = await createPaymentHistoryEntry({
           recurringPaymentId: payment.id,
           date: dueDate,
           amount: payment.cost,
           isPaid: false,
         })
-        createdCount++
-        // Add the newly created entry to our local cache to prevent duplicates in this run
-        paymentHistory.push({
-          id: 'temp',
-          userId: payment.userId,
-          recurringPaymentId: payment.id,
-          date: dueDate,
-          amount: payment.cost,
-          isPaid: false,
-        })
+        // If created is null, it means the entry already existed (race condition)
+        if (created) {
+          createdCount++
+          // Add the newly created entry to our local cache to prevent duplicates in this run
+          paymentHistory.push({
+            id: created.id,
+            userId: created.userId,
+            recurringPaymentId: created.recurringPaymentId,
+            date: created.date,
+            amount: created.amount,
+            isPaid: created.isPaid,
+          })
+        }
       }
     }
   }
