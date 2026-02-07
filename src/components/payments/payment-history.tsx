@@ -14,6 +14,12 @@ type PaymentHistoryProps = {
   onHistoryChange: () => void
 }
 
+type OptimisticUpdate = {
+  id: string
+  isPaid?: boolean
+  amount?: number
+}
+
 type EditingEntry = {
   id: string
   amount: number
@@ -28,6 +34,22 @@ export function PaymentHistory({
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editingData, setEditingData] = useState<EditingEntry | null>(null)
   const [isSaving, setIsSaving] = useState(false)
+  const [optimisticUpdates, setOptimisticUpdates] = useState<Map<string, OptimisticUpdate>>(
+    new Map()
+  )
+
+  // Apply optimistic updates to history
+  const displayHistory = history.map(entry => {
+    const update = optimisticUpdates.get(entry.id)
+    if (update) {
+      return {
+        ...entry,
+        ...(update.isPaid !== undefined && { isPaid: update.isPaid }),
+        ...(update.amount !== undefined && { amount: update.amount }),
+      }
+    }
+    return entry
+  })
 
   function handleEdit(entry: PaymentHistoryEntry) {
     setEditingId(entry.id)
@@ -46,6 +68,16 @@ export function PaymentHistory({
   async function handleSave() {
     if (!editingData) return
 
+    // Optimistic update
+    setOptimisticUpdates(
+      prev =>
+        new Map(prev).set(editingData.id, {
+          id: editingData.id,
+          amount: editingData.amount,
+          isPaid: editingData.isPaid,
+        })
+    )
+
     try {
       setIsSaving(true)
       await updatePaymentHistoryEntry(editingData.id, {
@@ -54,10 +86,22 @@ export function PaymentHistory({
         recurringPaymentId: paymentId,
         date: history.find(h => h.id === editingData.id)?.date || '',
       })
+      // Clear optimistic update on success
+      setOptimisticUpdates(prev => {
+        const next = new Map(prev)
+        next.delete(editingData.id)
+        return next
+      })
       setEditingId(null)
       setEditingData(null)
       onHistoryChange()
     } catch (err) {
+      // Revert optimistic update on error
+      setOptimisticUpdates(prev => {
+        const next = new Map(prev)
+        next.delete(editingData.id)
+        return next
+      })
       alert(err instanceof Error ? err.message : 'Failed to update payment history')
     } finally {
       setIsSaving(false)
@@ -65,15 +109,32 @@ export function PaymentHistory({
   }
 
   async function handleTogglePaid(entry: PaymentHistoryEntry) {
+    const newIsPaid = !entry.isPaid
+
+    // Optimistic update
+    setOptimisticUpdates(prev => new Map(prev).set(entry.id, { id: entry.id, isPaid: newIsPaid }))
+
     try {
       await updatePaymentHistoryEntry(entry.id, {
-        isPaid: !entry.isPaid,
+        isPaid: newIsPaid,
         recurringPaymentId: paymentId,
         date: entry.date,
         amount: entry.amount,
       })
+      // Clear optimistic update on success
+      setOptimisticUpdates(prev => {
+        const next = new Map(prev)
+        next.delete(entry.id)
+        return next
+      })
       onHistoryChange()
     } catch (err) {
+      // Revert optimistic update on error
+      setOptimisticUpdates(prev => {
+        const next = new Map(prev)
+        next.delete(entry.id)
+        return next
+      })
       alert(err instanceof Error ? err.message : 'Failed to update payment status')
     }
   }
@@ -91,7 +152,7 @@ export function PaymentHistory({
     }
   }
 
-  if (history.length === 0) {
+  if (displayHistory.length === 0) {
     return (
       <div className="card bg-base-200">
         <div className="card-body">
@@ -107,7 +168,7 @@ export function PaymentHistory({
       <div className="card-body">
         <h2 className="card-title">Payment History</h2>
         <div className="space-y-2">
-          {history.map(entry => {
+          {displayHistory.map(entry => {
             const isEditing = editingId === entry.id
 
             return (

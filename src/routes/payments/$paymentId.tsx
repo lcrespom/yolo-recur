@@ -62,6 +62,16 @@ function PaymentDetailPage() {
     navigate({ to: '/payments' })
   }
 
+  async function handleHistoryChange() {
+    // Reload only the payment history without showing loading spinner
+    try {
+      const historyData = await getPaymentHistory(paymentId)
+      setHistory(historyData)
+    } catch (err) {
+      console.error('Failed to reload payment history:', err)
+    }
+  }
+
   if (isLoading) {
     return (
       <div className="flex justify-center p-8">
@@ -110,7 +120,7 @@ function PaymentDetailPage() {
         <PaymentHistory
           paymentId={payment.id}
           history={history}
-          onHistoryChange={loadPaymentData}
+          onHistoryChange={handleHistoryChange}
         />
       )}
     </div>
