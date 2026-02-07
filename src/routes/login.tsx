@@ -92,7 +92,7 @@ function LoginPage() {
   if (user) return null
 
   return (
-    <div className="flex min-h-[60vh] items-center justify-center">
+    <div className="flex min-h-[60vh] items-start justify-center pt-12">
       <div className="card bg-base-200 w-full max-w-md shadow-lg">
         <div className="card-body">
           <h2 className="card-title mb-4 justify-center text-2xl">
@@ -131,7 +131,7 @@ function LoginPage() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
             <FormInput
               label="Email"
               type="email"
